@@ -6,6 +6,8 @@ services:
       - "8000:8000"
     volumes:
       - ./AI:/app
+    depends_on:
+      - database
   frontend:
     container_name: frontend
     build: ./Frontend
@@ -20,9 +22,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: hackyeah
-      POSTGRES_USER: hackyeah
-      POSTGRES_PASSWORD: hackyeah
+      POSTGRES_DB: besthacks
+      POSTGRES_USER: besthacks
+      POSTGRES_PASSWORD: besthacks
 networks:
   default:
-    name: "hackyeah2024_network"
+    name: "BestHacks_network"
