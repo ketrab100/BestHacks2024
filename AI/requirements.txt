@@ -1,0 +1,5 @@
+Django==4.1.4
+djangorestframework==3.13.1
+django-cors-headers
+drf-yasg
+djangorestframework-camel-case

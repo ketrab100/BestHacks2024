@@ -1,21 +1,21 @@
 services:
+  ai:
+    container_name: ai
+    build: ./AI
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./AI:/app
   frontend:
-    image: "frontend"
+    container_name: frontend
     build: ./Frontend
     ports:
       - "3000:3000"
     volumes:
-      - ./Frontend/my-app:/app
+      - ./Frontend/best-hacks:/app
       - /app/node_modules
-  # backend:
-  #   image: "backend"
-  #   build:
-  #     context: ./Backend/Hackyeah2024
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "2137:8080"
   database:
-    container_name: "hackyeah2024_database"
+    container_name: database
     image: postgres:17
     ports:
       - "5432:5432"
