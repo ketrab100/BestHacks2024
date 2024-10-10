@@ -1,0 +1,28 @@
+services:
+  frontend:
+    image: "frontend"
+    build: ./Frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Frontend/my-app:/app
+      - /app/node_modules
+  # backend:
+  #   image: "backend"
+  #   build:
+  #     context: ./Backend/Hackyeah2024
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "2137:8080"
+  database:
+    container_name: "hackyeah2024_database"
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: hackyeah
+      POSTGRES_USER: hackyeah
+      POSTGRES_PASSWORD: hackyeah
+networks:
+  default:
+    name: "hackyeah2024_network"
