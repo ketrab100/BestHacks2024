@@ -1,0 +1,6 @@
+@BestHacks2024_HostAddress = http://localhost:5132
+
+GET {{BestHacks2024_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
