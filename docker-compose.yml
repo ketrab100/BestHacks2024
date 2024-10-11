@@ -16,6 +16,13 @@ services:
     volumes:
       - ./Frontend/best-hacks:/app
       - /app/node_modules
+  backend:
+    image: "besthacks2024_backend"
+    build:
+      context: ./Backend/BestHacks2024/BestHacks2024
+      dockerfile: dockerfile
+    ports:
+      - "2137:8080"
   database:
     container_name: database
     image: postgres:17
