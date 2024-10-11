@@ -10,6 +10,8 @@ import {
 import Login from './Auth/Login';
 import { Provider } from 'react-redux';
 import { store } from './store'
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 const router = createBrowserRouter([
   {
