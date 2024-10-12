@@ -1,0 +1,100 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ustawia wysokość kontenera na 100% widoku */
+    overflow-y: scroll; /* Dodaje przewijanie, gdy jest za dużo wiadomości */
+
+}
+
+.chat-messages {
+    flex: 1; /* Umożliwia zajmowanie całej dostępnej przestrzeni */
+    overflow-y: auto; /* Dodaje przewijanie, gdy jest za dużo wiadomości */
+    padding: 10px;
+    background-color: #f9f9f9; /* Tło czatu */
+    margin-bottom: 10px; /* Margines dolny dla czatu */
+    display: flex;
+    flex-direction: column; /* Ustawienie wiadomości w kolumnie */
+    justify-content: flex-end; /* Ustawienie wiadomości przy dole kontenera */
+}
+
+/* Styl dla wiadomości */
+.chat-message {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 70%; /* Umożliwia ograniczenie szerokości boxu */
+    display: flex;
+    align-items: center;
+    position: relative; /* Umożliwia pozycjonowanie elementów */
+    word-wrap: break-word; /* Zawijanie długich słów */
+}
+
+/* Styl dla wiadomości wysłanych */
+.sent {
+    justify-content: flex-end; /* Wyrównanie do prawej */
+    background-color: #d9f9d9; /* Lekko zielony kolor dla wysłanych wiadomości */
+    align-self: flex-end; /* Przyklejenie do prawej strony */
+}
+
+/* Styl dla wiadomości odebranych */
+.received {
+    justify-content: flex-start; /* Wyrównanie do lewej */
+    background-color: #e0f7fa; /* Inny kolor dla odebranych wiadomości */
+    align-self: flex-start; /* Przyklejenie do lewej strony */
+}
+
+/* Awatar */
+.chat-avatar {
+    width: 30px; /* Mniejszy rozmiar */
+    height: 30px; /* Mniejszy rozmiar */
+    border-radius: 50%; /* Okrągły kształt */
+    margin-right: 5px; /* Odstęp dla wysłanych wiadomości */
+    object-fit: cover; /* Dopasowanie zdjęcia */
+}
+
+/* Stylizowanie kontentu wiadomości */
+.message-content {
+    display: flex;
+    flex-direction: column; /* Ustawienie w kolumnie */
+}
+
+/* Stylizacja daty */
+.message-date {
+    font-size: 0.8em;
+    color: gray;
+    text-align: right;
+    margin-top: 5px; /* Dodanie odstępu nad datą */
+}
+
+/* Styl pola do wpisywania wiadomości */
+.message-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: white; /* Tło dla pola wejściowego */
+    border-top: 1px solid #ccc; /* Górna granica */
+}
+
+/* Styl pola tekstowego */
+.input-field {
+    flex: 1; /* Umożliwia zajmowanie całej dostępnej przestrzeni */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px; /* Odstęp między polem a przyciskiem */
+}
+
+/* Styl przycisku wysyłania */
+.send-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Kolor przycisku */
+    color: white; /* Kolor tekstu przycisku */
+    cursor: pointer; /* Zmiana kursora na wskaźnik */
+}
+
+/* Efekt po najechaniu na przycisk */
+.send-button:hover {
+    background-color: #0056b3; /* Ciemniejszy kolor na hover */
+}

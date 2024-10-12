@@ -1,28 +1,23 @@
-// export default function auth(state = localStorage.getItem('token'), action: any) {
-//     switch (action.type) {
-//         case 'UPDATE_TOKEN':
-//             localStorage.setItem('token', action.payload)
-//             return state = action.payload
-//         default:
-//             return state
-//     }
-// }
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-const initialState: string = localStorage.getItem('token') ?? ''
-
+// Pobierz początkowy token z localStorage lub ustaw jako pusty string
+const initialState: string = localStorage.getItem('token') ?? '';
 
 export const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-        updateToken: (state, action: PayloadAction<string>) => {
-            localStorage.setItem('token', action.payload)
-            return action.payload
-        }
+  name: 'auth',
+  initialState,
+  reducers: {
+    updateToken: (state, action: PayloadAction<string>) => {
+      // Zapisz token w localStorage
+      localStorage.setItem('token', action.payload);
+      // Zwróć nową wartość tokena jako nowy stan
+      return action.payload;
     }
-})
+  }
+});
+
+// Exportuj akcję updateToken
 export const { updateToken } = authSlice.actions;
 
-export default authSlice.reducer
+// Exportuj reducer
+export default authSlice.reducer;
