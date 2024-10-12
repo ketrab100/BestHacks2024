@@ -3,6 +3,12 @@ import './TopBar.css'
 import conversation_icon from '../images/conversation.svg'
 import profile_icon from '../images/profile.svg'
 
+export function navigate(navigationUrl: string) {
+    if (window.location.href === window.location.origin + `${navigationUrl}`)
+        return;
+    window.location.href = window.location.origin + `${navigationUrl}`;
+}
+
 export default function TopBar() {
 
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -12,11 +18,6 @@ export default function TopBar() {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const navigate = (navigationUrl: string) => {
-        if (window.location.href === window.location.origin + `${navigationUrl}`)
-            return;
-        window.location.href = window.location.origin + `${navigationUrl}`;
-    }
 
     return (
         <div className="topbar">
@@ -27,7 +28,7 @@ export default function TopBar() {
             <div className="menu-items">
                 <div className="menu-icon-button"
                     style={{ backgroundImage: `url(${conversation_icon})` }}
-                    onClick={() => navigate('/conversations')} />
+                    onClick={() => navigate('/chat')} />
                 <div className="menu-icon-button"
                     style={{ backgroundImage: `url(${profile_icon})` }}
                     onClick={() => navigate('/profile')} />

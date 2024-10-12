@@ -14,7 +14,7 @@ public class EmployerService : IEmployerService
         _context = context;
     }
     
-    public async Task<IEnumerable<Employer>> GetEmployers()
+    public async Task<IEnumerable<Employer>> GetEmployersAsync()
     {
         return await _context
             .Employers
@@ -22,7 +22,7 @@ public class EmployerService : IEmployerService
             .ToListAsync();
     }
 
-    public async Task<Employer?> GetEmployerById(Guid id)
+    public async Task<Employer?> GetEmployerByIdAsync(Guid id)
     {
         return await _context
             .Employers

@@ -5,8 +5,8 @@ namespace BestHacks2024.Interfaces;
 
 public interface IEmployerService
 {
-    public Task<IEnumerable<Employer>> GetEmployers();
-    public Task<Employer?> GetEmployerById(Guid id);
+    public Task<IEnumerable<Employer>> GetEmployersAsync();
+    public Task<Employer?> GetEmployerByIdAsync(Guid id);
     public Task<Employer?> GetNextEmployer();
     
     public Task<Employer> CreateEmployer(EmployerDto employer);
