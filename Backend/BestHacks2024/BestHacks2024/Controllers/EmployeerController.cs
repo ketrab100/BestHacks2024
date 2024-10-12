@@ -20,13 +20,13 @@ public class EmployeerController: ControllerBase
         _mapper = mapper;
     }
     
-    [HttpGet("{id}")]
+    [HttpGet("next")]
     public async Task<IActionResult> GetJobAsync(CancellationToken cancellationToken)
     {
         var identity = HttpContext.User.Identity  as ClaimsIdentity;
         var id = Guid.Parse(identity.FindFirst("id").Value ?? throw new ArgumentException("Employee not found")) ;
-        var jobs  = await _employerService.GetNextEmployers(id, cancellationToken);
+        var employers  = await _employerService.GetNextEmployers(id, cancellationToken);
         
-        return Ok(jobs);
+        return Ok(employers);
     }
 }

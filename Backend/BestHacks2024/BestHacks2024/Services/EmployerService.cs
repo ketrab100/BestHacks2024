@@ -34,16 +34,19 @@ public class EmployerService : IEmployerService
 
     public async Task<List<Employer>> GetNextEmployers(Guid id, CancellationToken cancellationToken)
     {
-        var options = new RestClientOptions($"http://localhost:8000/matches/");
-        var client = new RestClient(options);
-        var request = new RestRequest($"job/{id}/");
-        var response = await client.GetAsync<List<EmployerAiDto>>(request, cancellationToken);
         var aiJobs = new List<EmployerAiDto>();
-        
-        if (response is not null)
+        try
         {
-            aiJobs = response.Where(x => x.Score > 0).ToList();
+            var options = new RestClientOptions($"http://localhost:8000/matches/");
+            var client = new RestClient(options);
+            var request = new RestRequest($"employers/{id}/");
+            var response = await client.GetAsync<List<EmployerAiDto>>(request, cancellationToken);
+            if (response is not null)
+            {
+                aiJobs = response.Where(x => x.Score > 0).ToList();
+            }
         }
+        catch{}
 
         var user = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         var userTagIds = user.UserTags.Select(x => x.TagId);
@@ -51,8 +54,9 @@ public class EmployerService : IEmployerService
 
         var restOfJobs = await _context.Employers
             .Where(x=> x.Matches.Any(y=>y.UserId!=user.Id))
-            .Where(x => x.EmployerTags.Any(y => userTagIds.Contains(y.TagId))).OrderBy(x=>x.Id).Take(10-aiJobs.Count).ToListAsync(cancellationToken);
-
+            .Where(x => x.EmployerTags.Any(y => userTagIds.Contains(y.TagId)))
+            .OrderBy(x=>x.Id).Take(10-aiJobs.Count).ToListAsync(cancellationToken);
+        
         employers = employers.Concat(restOfJobs).ToList();
         return employers;
     }
