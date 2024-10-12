@@ -10,10 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployeeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployeeService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +95,7 @@
       <updated>1728743794065</updated>
       <workItem from="1728743795850" duration="2935000" />
       <workItem from="1728747357900" duration="8630000" />
-      <workItem from="1728762987333" duration="4261000" />
+      <workItem from="1728762987333" duration="5828000" />
     </task>
     <servers />
   </component>

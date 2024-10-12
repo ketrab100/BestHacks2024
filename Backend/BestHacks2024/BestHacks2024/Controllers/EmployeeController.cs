@@ -90,6 +90,17 @@ public class EmployeeController : ControllerBase
             return BadRequest();
         }
     }
+    
+    [HttpGet("next")]
+    public async Task<IActionResult> GetNextAsync(CancellationToken cancellationToken)
+    {
+        var identity = HttpContext.User.Identity  as ClaimsIdentity;
+        var id = Guid.Parse(identity.FindFirst("id").Value ?? throw new ArgumentException("Employee not found")) ;
+        var employers  = await _employeeService.GetNextEmployeesAsync(id, cancellationToken);
+        
+        return Ok(employers);
+    }
+    
     private TagDto MapToTagDto(Tag tag)
     {
         return new TagDto

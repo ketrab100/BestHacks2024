@@ -21,7 +21,7 @@ public class EmployeerController: ControllerBase
     }
     
     [HttpGet("next")]
-    public async Task<IActionResult> GetJobAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetNextAsync(CancellationToken cancellationToken)
     {
         var identity = HttpContext.User.Identity  as ClaimsIdentity;
         var id = Guid.Parse(identity.FindFirst("id").Value ?? throw new ArgumentException("Employee not found")) ;
