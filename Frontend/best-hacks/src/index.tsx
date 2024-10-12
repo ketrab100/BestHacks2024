@@ -8,9 +8,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from './Auth/Login';
-import SwipeScreen from './Swipe/SwipeScreen'
 import { Provider } from 'react-redux';
 import { store } from './store'
+import 'bootstrap/dist/css/bootstrap.css';
+import Register from './Auth/Register';
+import Chat from './Chat/Chat';
+import SwipeScreen from './Swipe/SwipeScreen'
 import 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -26,7 +29,15 @@ const router = createBrowserRouter([
   {
     path: "/swipe",
     element: <SwipeScreen/>
-  }
+  },
+  {
+    path: "/register",
+    element: <Register />
+  },
+  {
+    path: "/chat/:matchId", // Nowa trasa dla czatu
+    element: <Chat />, // Usuń matchId z props
+  },
 ]);
 
 const root = ReactDOM.createRoot(
