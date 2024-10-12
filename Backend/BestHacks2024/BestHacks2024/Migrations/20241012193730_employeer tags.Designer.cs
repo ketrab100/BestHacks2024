@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BestHacks2024.Migrations
 {
     [DbContext(typeof(BestHacksDbContext))]
-    [Migration("20241012104541_InitialModels")]
-    partial class InitialModels
+    [Migration("20241012193730_employeer tags")]
+    partial class employeertags
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,54 +53,19 @@ namespace BestHacks2024.Migrations
                     b.ToTable("Conversations");
                 });
 
-            modelBuilder.Entity("BestHacks2024.Database.Entities.Job", b =>
+            modelBuilder.Entity("BestHacks2024.Database.Entities.EmployerTag", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<Guid>("EmployerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ExperienceLevel")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("JobDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("JobTitle")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployerId");
-
-                    b.ToTable("Jobs");
-                });
-
-            modelBuilder.Entity("BestHacks2024.Database.Entities.JobTag", b =>
-                {
-                    b.Property<Guid>("JobId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("TagId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("JobId", "TagId");
+                    b.HasKey("EmployerId", "TagId");
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("JobTags");
+                    b.ToTable("EmployerTags");
                 });
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.Match", b =>
@@ -109,21 +74,30 @@ namespace BestHacks2024.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("AreMatched")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("JobId")
+                    b.Property<bool>("DidEmployeeAcceptJobOffer")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("DidEmployerAcceptCandidate")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("EmployerId")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("MatchScore")
-                        .HasColumnType("numeric");
+                    b.Property<Guid>("JobId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("EmployerId");
 
                     b.HasIndex("UserId");
 
@@ -396,6 +370,9 @@ namespace BestHacks2024.Migrations
                             t.Property("CreatedAt")
                                 .HasColumnName("Employee_CreatedAt");
 
+                            t.Property("ExperienceLevel")
+                                .HasColumnName("Employee_ExperienceLevel");
+
                             t.Property("Location")
                                 .HasColumnName("Employee_Location");
                         });
@@ -418,9 +395,26 @@ namespace BestHacks2024.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("ExperienceLevel")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("JobDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<Guid?>("TagId")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("TagId");
 
                     b.HasDiscriminator().HasValue("Employer");
                 });
@@ -444,41 +438,30 @@ namespace BestHacks2024.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("BestHacks2024.Database.Entities.Job", b =>
+            modelBuilder.Entity("BestHacks2024.Database.Entities.EmployerTag", b =>
                 {
                     b.HasOne("BestHacks2024.Database.Entities.Employer", "Employer")
-                        .WithMany("Jobs")
+                        .WithMany("EmployerTags")
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Employer");
-                });
-
-            modelBuilder.Entity("BestHacks2024.Database.Entities.JobTag", b =>
-                {
-                    b.HasOne("BestHacks2024.Database.Entities.Job", "Job")
-                        .WithMany("JobTags")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BestHacks2024.Database.Entities.Tag", "Tag")
-                        .WithMany("JobTags")
+                        .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Job");
+                    b.Navigation("Employer");
 
                     b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.Match", b =>
                 {
-                    b.HasOne("BestHacks2024.Database.Entities.Job", "Job")
+                    b.HasOne("BestHacks2024.Database.Entities.Employer", "Employer")
                         .WithMany("Matches")
-                        .HasForeignKey("JobId")
+                        .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -490,7 +473,7 @@ namespace BestHacks2024.Migrations
 
                     b.Navigation("Employee");
 
-                    b.Navigation("Job");
+                    b.Navigation("Employer");
                 });
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.UserTag", b =>
@@ -563,11 +546,11 @@ namespace BestHacks2024.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BestHacks2024.Database.Entities.Job", b =>
+            modelBuilder.Entity("BestHacks2024.Database.Entities.Employer", b =>
                 {
-                    b.Navigation("JobTags");
-
-                    b.Navigation("Matches");
+                    b.HasOne("BestHacks2024.Database.Entities.Tag", null)
+                        .WithMany("EmployerTags")
+                        .HasForeignKey("TagId");
                 });
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.Match", b =>
@@ -577,7 +560,7 @@ namespace BestHacks2024.Migrations
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.Tag", b =>
                 {
-                    b.Navigation("JobTags");
+                    b.Navigation("EmployerTags");
 
                     b.Navigation("UserTags");
                 });
@@ -591,7 +574,9 @@ namespace BestHacks2024.Migrations
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.Employer", b =>
                 {
-                    b.Navigation("Jobs");
+                    b.Navigation("EmployerTags");
+
+                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

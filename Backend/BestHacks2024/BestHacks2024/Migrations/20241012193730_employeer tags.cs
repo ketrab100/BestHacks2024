@@ -5,7 +5,7 @@
 namespace BestHacks2024.Migrations
 {
     /// <inheritdoc />
-    public partial class _121020242059_db_changes : Migration
+    public partial class employeertags : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -438,7 +438,7 @@ namespace BestHacks2024.Migrations
             modelBuilder.Entity("BestHacks2024.Database.Entities.EmployerTag", b =>
                 {
                     b.HasOne("BestHacks2024.Database.Entities.Employer", "Employer")
-                        .WithMany()
+                        .WithMany("EmployerTags")
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -571,6 +571,8 @@ namespace BestHacks2024.Migrations
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.Employer", b =>
                 {
+                    b.Navigation("EmployerTags");
+
                     b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618

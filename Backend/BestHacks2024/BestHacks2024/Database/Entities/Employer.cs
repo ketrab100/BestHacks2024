@@ -11,4 +11,5 @@ public class Employer : User
     public string Location { get; set; }
     public string ExperienceLevel { get; set; }
     public ICollection<Match> Matches { get; set; }
+    public ICollection<EmployerTag> EmployerTags { get; set; }
 }
