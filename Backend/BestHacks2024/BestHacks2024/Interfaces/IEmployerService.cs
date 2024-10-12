@@ -7,7 +7,7 @@ public interface IEmployerService
 {
     public Task<IEnumerable<Employer>> GetEmployersAsync();
     public Task<Employer?> GetEmployerByIdAsync(Guid id);
-    public Task<Employer?> GetNextEmployer();
+    public Task<List<Employer>?> GetNextEmployers(Guid id, CancellationToken cancellationToken);
     
     public Task<Employer> CreateEmployer(EmployerDto employer);
     public Task<Employer> UpdateEmployer(Guid id, EmployerDto employer);
