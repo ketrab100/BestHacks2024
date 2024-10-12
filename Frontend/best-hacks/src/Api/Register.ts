@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { updateToken } from '../Reducers/AuthReducer';
 import { auth } from '../Models/Interfaces';
 import { store } from '../store';
 
@@ -9,10 +8,7 @@ export async function register(email: string, nickname: string, password: string
       email: email,
       nickname: nickname,
       password: password,
-      IsEmployee: IsEmployee
-    })
-    .then((response) => {
-      store.dispatch(updateToken(response.data.token));
+      isEmployee: IsEmployee
     })
     .catch((error) => {
       console.error("Registration failed", error);

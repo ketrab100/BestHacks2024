@@ -1,7 +1,8 @@
 export interface auth {
     isAuthSuccessful: boolean,
     errorMessage: string,
-    token: string
+    token: string,
+    role: string
 }
 
 export interface Employee {

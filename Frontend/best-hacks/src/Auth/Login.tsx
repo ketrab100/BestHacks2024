@@ -1,12 +1,23 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { login } from '../Api/Login';
 import { store } from '../store';
-import './Login.css';  // Import nowego pliku CSS
+import './Login.css'; // Import nowego pliku CSS
 
 function Login() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [token, setToken] = useState<string>(store.getState().authReducer);
+  const [token, setToken] = useState<string | null>(null); // Używamy null jako domyślnej wartości
+
+  useEffect(() => {
+    // Zaktualizuj token za każdym razem, gdy się zmienia w Reduxie
+    const unsubscribe = store.subscribe(() => {
+      const state = store.getState();
+      setToken(state.authReducer.token); // Ustaw token z Redux
+    });
+
+    // Zwróć funkcję czyszczącą
+    return () => unsubscribe();
+  }, []);
 
   function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setEmail(e.currentTarget.value);
@@ -18,8 +29,7 @@ function Login() {
 
   async function onLogin() {
     await login(email, password);
-    setPassword('');
-    setToken(store.getState().authReducer);
+    setPassword(''); // Czyścimy hasło po próbie logowania
   }
 
   return (
