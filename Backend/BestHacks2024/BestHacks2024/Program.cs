@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using BestHacks2024.Database;
 using BestHacks2024.Interfaces;
+using BestHacks2024.Mappings;
 using BestHacks2024.Services;
 
 namespace BestHacks2024
@@ -63,6 +64,8 @@ namespace BestHacks2024
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            
             builder.Services.AddDbContext<BestHacksDbContext>(options =>
             {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("SqlConnection"));
@@ -70,6 +73,7 @@ namespace BestHacks2024
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IEmployerService, EmployerService>();
             builder.Services.AddScoped<IJobService, JobService>();
+            builder.Services.AddScoped<IMatchService, MatchService>();
 
             builder.Services.AddIdentity<User, IdentityRole<Guid>>(opt =>
             {
@@ -97,7 +101,6 @@ namespace BestHacks2024
                 };
             });
 
-            builder.Services.AddAutoMapper(typeof(Program).Assembly);
             
             
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
