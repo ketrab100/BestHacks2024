@@ -39,7 +39,6 @@ namespace BestHacks2024.Controllers
                 return BadRequest(new AuthResponseDto { IsAuthSuccessful = false, ErrorMessage = result.Errors.Select(x => x.Description).FirstOrDefault() });
 
             //await _userManager.AddToRoleAsync(user, "User");
-            //test commit
             return StatusCode(201);
         }
 
