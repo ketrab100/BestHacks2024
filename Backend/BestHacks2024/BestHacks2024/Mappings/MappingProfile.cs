@@ -7,13 +7,8 @@ namespace BestHacks2024.Mappings;
 
 public class MappingProfile : Profile
 {
-    private readonly IEmployeeService _employeeService;
-    private readonly IEmployerService _employerService;
-    public MappingProfile(IEmployeeService employeeService, IEmployerService employerService)
+    public MappingProfile()
     {
-        _employeeService = employeeService;
-        _employerService = employerService;
-
         CreateMap<EmployeeDto, Employee>()
             .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
             .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
