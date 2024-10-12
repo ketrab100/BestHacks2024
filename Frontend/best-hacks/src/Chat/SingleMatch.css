@@ -1,0 +1,46 @@
+.conversation-card {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-column: span 1;
+  }
+  
+  .conversation-info {
+    text-align: left;
+  }
+  
+  .conversation-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .conversation-position {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .conversation-interests {
+    margin-top: 10px;
+  }
+  
+  .conversation-interests ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+  
+  .conversation-interests li {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .interests-container {
+    display: flex;
+    gap: 2px;
+  }
