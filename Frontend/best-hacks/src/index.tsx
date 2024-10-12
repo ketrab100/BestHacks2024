@@ -17,6 +17,7 @@ import SwipeScreen from './Swipe/SwipeScreen'
 import 'bootstrap/dist/css/bootstrap.css';
 import TopBar from './Utils/TopBar';
 import Matches from './Chat/Matches';
+import ProfileCreation from './Profile/ProfileCreation';
 
 
 const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/swipe",
-    element: <SwipeScreen/>
+    element: <SwipeScreen />
   },
   {
     path: "/register",
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
     path: "/chat",
     element: <Matches />
   },
+  {
+    path: "/profile",
+    element: <ProfileCreation />
+  }
 ]);
 
 const root = ReactDOM.createRoot(
