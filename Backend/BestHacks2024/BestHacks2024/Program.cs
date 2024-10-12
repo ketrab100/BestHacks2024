@@ -96,6 +96,10 @@ namespace BestHacks2024
 
             var app = builder.Build();
 
+            var scope = app.Services.CreateScope();
+            var dbcontext = scope.ServiceProvider.GetRequiredService<BestHacksDbContext>();
+            dbcontext.Database.Migrate();
+
             // Configure the HTTP request pipeline.
 
             app.UseSwagger();
