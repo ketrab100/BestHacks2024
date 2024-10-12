@@ -15,6 +15,7 @@ import Register from './Auth/Register';
 import Chat from './Chat/Chat';
 import SwipeScreen from './Swipe/SwipeScreen'
 import 'bootstrap/dist/css/bootstrap.css';
+import TopBar from './Utils/TopBar';
 
 
 const router = createBrowserRouter([
@@ -46,6 +47,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <TopBar />
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
