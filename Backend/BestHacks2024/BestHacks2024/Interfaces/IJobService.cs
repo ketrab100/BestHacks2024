@@ -6,7 +6,7 @@ namespace BestHacks2024.Interfaces;
 public interface IJobService
 {
     public Task<IEnumerable<Job>> GetJobsAsync();
-    public Task<Job?> GetJobAsync(Guid jobId);
+    public Task<Job?> GetJobByIdAsync(Guid jobId);
     public Task<Job?> GetNextJobAsync();
     
     public Task<Job> AddJobAsync(JobDto job);
