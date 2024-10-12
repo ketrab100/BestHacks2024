@@ -110,7 +110,7 @@ public class EmployeeService : IEmployeeService
         return employee;
     }
 
-    public async Task<Employee?> UpdateEmployeeProfileAsync(Guid id, EmployeeProfileDto employeeDto)
+    public async Task<Employee?> UpdateEmployeeProfileAsync(Guid id, EmployeeDto employeeDto)
     {
         var employee = await _context.Employees
             .Include(e => e.UserTags)
@@ -119,12 +119,7 @@ public class EmployeeService : IEmployeeService
         if (employee == null)
             throw new KeyNotFoundException("Employee not found");
 
-        //_mapper.Map(employeeDto, employee);
-        employee.FirstName = employeeDto.FirstName;
-        employee.LastName = employeeDto.LastName;
-        employee.Bio = employeeDto.Bio;
-        employee.Location = employeeDto.Location;
-        employee.ExperienceLevel = employeeDto.Experience;
+        _mapper.Map(employeeDto, employee);
 
         var employeeTags = employeeDto.Tags.Select(x => x.Name).ToList();
 
@@ -167,17 +162,5 @@ public class EmployeeService : IEmployeeService
 
         _context.Employees.Remove(employee);
         await _context.SaveChangesAsync();
-    }
-
-    private Employee MapToEmployee(EmployeeProfileDto employee)
-    {
-        return new Employee
-        {
-            FirstName = employee.FirstName,
-            LastName = employee.LastName,
-            //Email = employee.Email,
-            Bio = employee.Bio,
-            Location = employee.Location
-        };
     }
 }

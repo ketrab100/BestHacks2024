@@ -1,23 +1,35 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// AuthReducer.ts
+import { createSlice } from '@reduxjs/toolkit';
 
-// Pobierz początkowy token z localStorage lub ustaw jako pusty string
-const initialState: string = localStorage.getItem('token') ?? '';
+interface AuthState {
+    token: string | null;
+    role: string | null; // Dodaj pole role
+}
 
-export const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    updateToken: (state, action: PayloadAction<string>) => {
-      // Zapisz token w localStorage
-      localStorage.setItem('token', action.payload);
-      // Zwróć nową wartość tokena jako nowy stan
-      return action.payload;
-    }
-  }
+const initialState: AuthState = {
+    token: null,
+    role: null, // Domyślna wartość dla roli
+};
+
+const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        updateAuth: (state, action) => {
+            state.token = action.payload.token;
+            state.role = action.payload.role;
+            // Zapisz token i rolę w localStorage (opcjonalnie)
+            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('role', action.payload.role);
+        },
+        clearAuth: (state) => {
+            state.token = null;
+            state.role = null;
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
+        },
+    },
 });
 
-// Exportuj akcję updateToken
-export const { updateToken } = authSlice.actions;
-
-// Exportuj reducer
+export const { updateAuth, clearAuth } = authSlice.actions;
 export default authSlice.reducer;

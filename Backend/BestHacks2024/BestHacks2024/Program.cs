@@ -72,7 +72,6 @@ namespace BestHacks2024
             });
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IEmployerService, EmployerService>();
-            builder.Services.AddScoped<IJobService, JobService>();
             builder.Services.AddScoped<IMatchService, MatchService>();
 
             builder.Services.AddIdentity<User, IdentityRole<Guid>>(opt =>

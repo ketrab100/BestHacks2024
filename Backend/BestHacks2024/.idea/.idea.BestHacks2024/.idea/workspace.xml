@@ -10,25 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/MatchDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IMatchService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BestHacks2024/Services/MatchService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Match.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Match.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Dtos/JobDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/JobDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IJobService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IJobService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Mappings/MappingProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Mappings/MappingProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/BestHacksDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Migrations/BestHacksDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/JobService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/JobService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="autoShow" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -49,22 +42,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.Unnamed.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ],
+    "rider.external.source.directories": [
+      "/Users/bartlomiejsawicki/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
+      "/Users/bartlomiejsawicki/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
+      "/Users/bartlomiejsawicki/Library/Application Support/Symbols/src"
     ]
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="DotNetProject" factoryName=".NET Project" nameIsGenerated="true">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/BestHacks2024/bin/Debug/net8.0/BestHacks2024.dll" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/BestHacks2024" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/BestHacks2024/BestHacks2024.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="DotNetCore" />
+      <option name="PROJECT_TFM" value="net8.0" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -74,7 +93,8 @@
       <option name="presentableId" value="Default" />
       <updated>1728743794065</updated>
       <workItem from="1728743795850" duration="2935000" />
-      <workItem from="1728747357900" duration="4655000" />
+      <workItem from="1728747357900" duration="8630000" />
+      <workItem from="1728762987333" duration="4261000" />
     </task>
     <servers />
   </component>

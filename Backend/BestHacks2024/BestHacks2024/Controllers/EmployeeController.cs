@@ -40,8 +40,7 @@ public class EmployeeController : ControllerBase
         var identity = HttpContext.User.Identity as ClaimsIdentity;
         var employee = await _employeeService.GetEmployeeByIdAsync(Guid.Parse(identity.FindFirst("id").Value)) ?? throw new ArgumentException("Employee not found");
 
-        var employeeDto = MapToEmployeeDto(employee);
-        return Ok(employeeDto);
+        return Ok(employee);
     }
 
     [HttpGet]
@@ -68,7 +67,7 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpPut("me")]
-    public async Task<IActionResult> UpdateEmployeeAsync([FromBody] EmployeeProfileDto dto)
+    public async Task<IActionResult> UpdateEmployeeAsync([FromBody] EmployeeDto dto)
     {
         var identity = HttpContext.User.Identity as ClaimsIdentity;
         var id = Guid.Parse(identity.FindFirst("id").Value);
@@ -91,21 +90,6 @@ public class EmployeeController : ControllerBase
             return BadRequest();
         }
     }
-
-    private EmployeeProfileDto MapToEmployeeDto(Employee employee)
-    {
-        return new EmployeeProfileDto
-        {
-            FirstName = employee.FirstName,
-            LastName = employee.LastName,
-            //Email = employee.Email,
-            Bio = employee.Bio,
-            Location = employee.Location,
-            Experience = employee.ExperienceLevel,
-            Tags = employee.UserTags.Select(ut => MapToTagDto(ut.Tag)).ToList()
-        };
-    }
-
     private TagDto MapToTagDto(Tag tag)
     {
         return new TagDto

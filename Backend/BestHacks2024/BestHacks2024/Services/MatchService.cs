@@ -47,7 +47,7 @@ public class MatchService : IMatchService
         return await _context
             .Matches
             .AsNoTracking()
-            .Where(x => x.Job.Employer.Id == employerId)
+            .Where(x => x.Employer.Id == employerId)
             .ToListAsync();
     }
 
@@ -56,19 +56,17 @@ public class MatchService : IMatchService
         var employee = await _context.Employees.FirstOrDefaultAsync(x=> x.Id == matchDto.EmployeeId);
         if (employee == null)
         {
-            throw new Exception("Employee not found");
+            throw new KeyNotFoundException("Employee not found");
         }
 
-        var job = await _context.Jobs.FirstOrDefaultAsync(x=> x.Id == matchDto.JobId);
-        if (job == null)
-        {
-            throw new Exception("Job not found");
-        }
+        var employer = await _context.Employers.FirstOrDefaultAsync(x=> x.Id == matchDto.JobId);
+        if(employer == null)
+            throw new KeyNotFoundException("Employer not found");
 
         var match = _mapper.Map<Match>(matchDto);
 
         match.Employee = employee;
-        match.Job = job;
+        match.Employer = employer;
         match.AreMatched = matchDto.DidEmployerAcceptCandidate && matchDto.DidEmployeeAcceptJobOffer;
 
         _context.Matches.Add(match);
@@ -81,30 +79,30 @@ public class MatchService : IMatchService
     {
         var existingMatch = await _context.Matches
             .Include(m => m.Employee)
-            .Include(m => m.Job)
+            .Include(m => m.Employer)
             .FirstOrDefaultAsync(m => m.Id == matchId);
 
         if (existingMatch == null)
         {
-            throw new Exception("Match not found");
+            throw new KeyNotFoundException("Match not found");
         }
 
         var employee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == matchDto.EmployeeId);
         if (employee == null)
         {
-            throw new Exception("Employee not found");
+            throw new KeyNotFoundException("Employee not found");
         }
 
-        var job = await _context.Jobs.FirstOrDefaultAsync(x=> x.Id == matchDto.JobId);
-        if (job == null)
+        var employer = await _context.Employers.FirstOrDefaultAsync(x=> x.Id == matchDto.JobId);
+        if (employer == null)
         {
-            throw new Exception("Job not found");
+            throw new KeyNotFoundException("Employer not found");
         }
 
         _mapper.Map(matchDto, existingMatch);
 
         existingMatch.Employee = employee;
-        existingMatch.Job = job;
+        existingMatch.Employer = employer;
 
         existingMatch.DidEmployerAcceptCandidate = matchDto.DidEmployerAcceptCandidate;
         existingMatch.DidEmployeeAcceptJobOffer = matchDto.DidEmployeeAcceptJobOffer;
