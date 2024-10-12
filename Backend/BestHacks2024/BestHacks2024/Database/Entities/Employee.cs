@@ -2,13 +2,13 @@ namespace BestHacks2024.Database.Entities;
 
 public class Employee : User
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Bio { get; set; }
-    public string Location { get; set; }
-    public string ExperienceLevel { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Bio { get; set; } = string.Empty;
+    public string Location { get; set; } = string.Empty;
+    public string ExperienceLevel { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<UserTag> UserTags { get; set; }
-    public ICollection<Match> Matches { get; set; }
+    public ICollection<UserTag> UserTags { get; set; } = new List<UserTag>();
+    public ICollection<Match> Matches { get; set; } = new List<Match>();
 }

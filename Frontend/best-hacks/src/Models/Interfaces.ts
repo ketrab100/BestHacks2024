@@ -4,30 +4,32 @@ export interface auth {
     token: string
 }
 
-export interface User {
-    id: string;
-    email: string;
-    userName: string;
-}
-
-export interface Employee extends User {
+export interface Employee {
     firstName: string;
     lastName: string;
+    email: string;
     bio: string;
     location: string;
-    experienceLevel: string;
-    createdAt: Date;
+    experience: string;
     userTags: UserTag[];
-    matches: Match[];
 }
 
-export interface Employer extends User {
+export interface Employer {
     companyName: string;
     contactName: string;
     location: string;
     createdAt: Date;
     jobs: Job[];
 }
+
+export interface EmployeeProfileDto {
+    firstName?: string;
+    lastName?: string;
+    bio?: string;
+    location?: string;
+    experience?: string;
+    tags: Tag[];
+  }
 
 export interface Job {
     id: string;
@@ -81,5 +83,5 @@ export interface Conversation {
     matchId: string;
     match: Match;
     senderId: string;
-    sender: User;
+    //sender: User;
 }

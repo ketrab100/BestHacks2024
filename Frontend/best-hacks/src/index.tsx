@@ -12,7 +12,7 @@ import { Provider } from 'react-redux';
 import { store } from './store'
 import 'bootstrap/dist/css/bootstrap.css';
 import Register from './Auth/Register';
-import Chat from './Chat/Chat';
+//import Chat from './Chat/Chat';
 import SwipeScreen from './Swipe/SwipeScreen'
 import 'bootstrap/dist/css/bootstrap.css';
 import TopBar from './Utils/TopBar';
@@ -36,10 +36,10 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />
   },
-  {
-    path: "/chat/:matchId", // Nowa trasa dla czatu
-    element: <Chat />, // Usuń matchId z props
-  },
+  // {
+  //   path: "/chat/:matchId", // Nowa trasa dla czatu
+  //   element: <Chat />, // Usuń matchId z props
+  // },
   {
     path: "/chat",
     element: <Matches />
