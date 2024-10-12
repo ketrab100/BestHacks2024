@@ -10,17 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/EmployerAiDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources/a7a18fb7-2454-4d4a-8f3a-4104e1504f81.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/BestHacks2024.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/BestHacks2024.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012165613_121020241836_db_changes.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012165613_121020241836_db_changes.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012190012_121020242059_db_changes.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012190012_121020242059_db_changes.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/BestHacksDbContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/Init.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/Init.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/InitialModels.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/InitialModels.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Employer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Employer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/BestHacksDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Migrations/BestHacksDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1728743794065</updated>
       <workItem from="1728743795850" duration="2935000" />
-      <workItem from="1728747357900" duration="10045000" />
+      <workItem from="1728747357900" duration="8630000" />
     </task>
     <servers />
   </component>
