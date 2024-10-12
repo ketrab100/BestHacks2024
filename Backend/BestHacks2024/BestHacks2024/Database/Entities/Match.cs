@@ -11,7 +11,7 @@ public class Match : BaseEntity
     public Employee Employee { get; set; }
 
     public Guid JobId { get; set; }
-    public Job Job { get; set; }
+    public Employer Employer { get; set; }
 
     public ICollection<Conversation> Conversations { get; set; }
 }

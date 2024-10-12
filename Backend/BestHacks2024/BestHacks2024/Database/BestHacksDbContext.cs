@@ -9,10 +9,9 @@ namespace BestHacks2024.Database
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Employer> Employers { get; set; }
-        public DbSet<Job> Jobs { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UserTag> UserTags { get; set; }
-        public DbSet<JobTag> JobTags { get; set; }
+        public DbSet<EmployerTag> EmployerTags { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
 
@@ -38,37 +37,13 @@ namespace BestHacks2024.Database
                 .HasForeignKey(ut => ut.TagId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<JobTag>()
-                .HasKey(jt => new { jt.JobId, jt.TagId });
-
-            builder.Entity<JobTag>()
-                .HasOne(jt => jt.Job)
-                .WithMany(j => j.JobTags)
-                .HasForeignKey(jt => jt.JobId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<JobTag>()
-                .HasOne(jt => jt.Tag)
-                .WithMany(t => t.JobTags)
-                .HasForeignKey(jt => jt.TagId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Job>()
-                .HasOne(j => j.Employer)
-                .WithMany(e => e.Jobs)
-                .HasForeignKey(j => j.EmployerId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<EmployerTag>()
+                .HasKey(et => new { et.EmployerId, et.TagId });
 
             builder.Entity<Match>()
                 .HasOne(m => m.Employee)
                 .WithMany(e => e.Matches)
                 .HasForeignKey(m => m.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Match>()
-                .HasOne(m => m.Job)
-                .WithMany(j => j.Matches)
-                .HasForeignKey(m => m.JobId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Conversation>()
