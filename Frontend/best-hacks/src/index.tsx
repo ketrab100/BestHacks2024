@@ -8,6 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from './Auth/Login';
+import SwipeScreen from './Swipe/SwipeScreen'
 import { Provider } from 'react-redux';
 import { store } from './store'
 import 'bootstrap/dist/css/bootstrap.css';
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/swipe",
+    element: <SwipeScreen/>
   }
 ]);
 
