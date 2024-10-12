@@ -20,6 +20,15 @@
     box-sizing: border-box;
 }
 
+.name {
+    color:#2ca9bc;
+}
+
+.arrow-down {
+    height: 20px;
+    width: 20px;
+}
+
 ul::before {
     content:attr(aria-label);
     font-size:120%;
@@ -30,13 +39,13 @@ ul::before {
 .first-section {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 1px;
     align-items: center;
 }
 
 .credentials {
     width: 100%;
-    font-size: 130%;
+    font-size: 40px;
     text-align: left;
     font-weight: bold;
 }
@@ -50,10 +59,11 @@ ul::before {
 }
 
 .profile-pic {
-    width: calc(100% - 40px);
+    width: calc(100% - 60px);
     aspect-ratio: 1 / 1;
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 20px;
 }
 
 .looking-for {
