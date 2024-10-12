@@ -28,17 +28,21 @@ namespace BestHacks2024.Controllers
             if (userRegistrationDto == null)
                 return BadRequest();
 
-            var user = new User
-            {
-                Email = userRegistrationDto.Email,
-                UserName = userRegistrationDto.Nickname
-            };
+            User user;
+
+            // tworzymy pustego employee albo emplyera w zależności od profilu
+            if (userRegistrationDto.IsEmployee)
+                user = new Employee();
+            else
+                user = new Employer();
+
+            user.Email = userRegistrationDto.Email;
+            user.UserName = userRegistrationDto.Nickname;
             var result = await _userManager.CreateAsync(user, userRegistrationDto.Password);
 
             if (!result.Succeeded)
                 return BadRequest(new AuthResponseDto { IsAuthSuccessful = false, ErrorMessage = result.Errors.Select(x => x.Description).FirstOrDefault() });
 
-            //await _userManager.AddToRoleAsync(user, "User");
             return StatusCode(201);
         }
 
@@ -58,12 +62,13 @@ namespace BestHacks2024.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
             {
             new Claim(ClaimTypes.NameIdentifier, user.UserName),
+            new Claim("Id", user.Id.ToString())
                 // Add more claims as needed
             }),
                 Expires = DateTime.UtcNow.AddHours(24),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _configuration["Jwt:Issuer"], // Add this line
-                Audience = _configuration["Jwt:Audience"]
+                Audience = _configuration["Jwt:Audience"],
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 

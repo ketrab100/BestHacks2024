@@ -7,6 +7,7 @@ function Register() {
   const [email, setEmail] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [isEmployer, setIsEmployer] = useState<boolean>(false); // Nowy stan dla checkboxa
   const [statusMessage, setStatusMessage] = useState<string>(''); // Nowy stan na komunikaty
 
   function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
@@ -21,15 +22,20 @@ function Register() {
     setPassword(e.currentTarget.value);
   }
 
+  function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
+    setIsEmployer(e.currentTarget.checked); // Aktualizacja stanu checkboxa
+  }
+
   async function onRegister() {
     try {
-      await register(email, nickname, password);
-      setStatusMessage('Rejestracja zakończona sukcesem!'); // Komunikat o sukcesie
+      await register(email, nickname, password, isEmployer); // Przekazanie nowej wartości
+      setStatusMessage('Rejestracja zakończona sukcesem!');
       setPassword('');
-      setEmail('');  // Opcjonalnie: czyść inne pola po sukcesie
+      setEmail('');
       setNickname('');
+      setIsEmployer(false); // Reset checkboxa
     } catch (error) {
-      setStatusMessage('Rejestracja nie powiodła się. Spróbuj ponownie.'); // Komunikat o błędzie
+      setStatusMessage('Rejestracja nie powiodła się. Spróbuj ponownie.');
     }
   }
 
@@ -68,13 +74,23 @@ function Register() {
           />
         </div>
 
+        <div className="mb-3">
+          <input
+            type="checkbox"
+            id="isEmployer"
+            checked={isEmployer}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor="isEmployer" className="ms-2">Jestem firmą</label>
+        </div>
+
         <div className="d-grid gap-2">
           <button onClick={onRegister} className="btn btn-primary">
             Zarejestruj
           </button>
         </div>
 
-        {statusMessage && ( // Wyświetl komunikat o statusie
+        {statusMessage && (
           <div className="alert alert-info mt-3">
             {statusMessage}
           </div>

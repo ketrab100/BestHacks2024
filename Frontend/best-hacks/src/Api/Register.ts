@@ -3,7 +3,7 @@ import { updateToken } from '../Reducers/AuthReducer';
 import { auth } from '../Models/Interfaces';
 import { store } from '../store';
 
-export async function register(email: string, nickname: string, password: string) {
+export async function register(email: string, nickname: string, password: string, IsEmployee: boolean) {
   await axios
     .post<auth>("http://localhost:2137/api/Auth/Register", {
       email: email,
