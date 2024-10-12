@@ -23,7 +23,8 @@ export default function TopBar() {
         <div className="topbar">
             <div className="company-name"
                 onClick={() => navigate('/swipe')}>
-                FindER.it
+                Find
+                <span className="blueText">ER</span>.it
             </div>
             <div className="menu-items">
                 <div className="menu-icon-button"
@@ -32,11 +33,6 @@ export default function TopBar() {
                 <div className="menu-icon-button"
                     style={{ backgroundImage: `url(${profile_icon})` }}
                     onClick={() => navigate('/profile')} />
-                <div className="hamburger-menu" onClick={toggleMenu}>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                </div>
             </div>
 
             {isMenuOpen && (

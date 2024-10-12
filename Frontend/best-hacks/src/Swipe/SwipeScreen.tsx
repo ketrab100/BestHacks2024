@@ -1,7 +1,7 @@
 import React from "react";
 import './SwipeScreen.css';
 import image from '../images/image_prof.png'
-
+import arrow_down from '../images/arrow-down.svg'
 function SwipeScreen() {
     const [bgColor, setBgColor] = React.useState("#f0f8ff");
     const touchStartX = React.useRef(0); // Przechowuje pozycję X początku dotyku
@@ -10,12 +10,12 @@ function SwipeScreen() {
     const touchEndY = React.useRef(0);   // Przechowuje pozycję X końca dotyku
     const previousJobs: { jobName: string, position: string }[] = [
         {
-            jobName: 'Watykan Code Solutions',
-            position: 'Junior Frontend Dev'
+            jobName: 'Nokia',
+            position: 'Junior C++ Dev'
         },
         {
-            jobName: 'Kod-pol',
-            position: 'Regular Frontend Dev'
+            jobName: 'Tietoevry',
+            position: 'Regular C++ Dev'
         },
         {
             jobName: 'Watykan Code Solutions',
@@ -27,9 +27,9 @@ function SwipeScreen() {
         }
     ]
     const skills: { technology: string }[] = [
-        { technology: 'JeDzie' },
-        { technology: 'Dodge' },
-        { technology: 'JeDzie' },
+        { technology: 'C++' },
+        { technology: 'C' },
+        { technology: 'GitHub' },
         { technology: 'Dodge' },
         { technology: 'JeDzie' },
         { technology: 'Dodge' }
@@ -76,7 +76,7 @@ function SwipeScreen() {
             style={{ backgroundColor: bgColor }}>
             <section className="snap-section first-section">
                 <div className="profile-pic" style={{ backgroundImage: `url(${image})` }} />
-                <span className="credentials">Jan Kowalski</span>
+                <span className="credentials"><span className="name">Jan</span> Kowalski</span>
                 <div className="summary">
                     <ul className="career" aria-label="Career Summary">
                         {previousJobs.slice(0, 2).map((job) => {
@@ -101,6 +101,7 @@ function SwipeScreen() {
                         })}
                     </div>
                 </div>
+                <img className="arrow-down" src={arrow_down}></img>
             </section>
             <section className="snap-section second-section">
                 <div className="description">
