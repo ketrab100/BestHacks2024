@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { auth } from '../Models/Interfaces';
-import { store } from '../store';
 
 export async function register(email: string, nickname: string, password: string, IsEmployee: boolean) {
   await axios
