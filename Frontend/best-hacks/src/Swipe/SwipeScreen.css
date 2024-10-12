@@ -1,0 +1,72 @@
+.scroll-container {
+    height: calc(100vh - 30px);
+    /* Cała wysokość ekranu */
+    scroll-snap-type: y mandatory;
+    /* Wymusza płynne przewijanie w osi Y */
+    overflow-y: scroll;
+    /* Umożliwia przewijanie */
+    transition: background-color 0.3s ease-in-out;
+    margin: 30px;
+    border-radius: 8px;
+}
+
+.snap-section {
+    height: calc(100vh - 30px);
+    /* Każda sekcja zajmuje cały ekran */
+    scroll-snap-align: start;
+    /* Sekcje przyklejają się do początku */
+    display: flex;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+ul::before {
+    content:attr(aria-label);
+    font-size:120%;
+    font-weight:bold;
+    margin-left:-32px;
+}
+
+.first-section {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+}
+
+.credentials {
+    width: 100%;
+    font-size: 130%;
+    text-align: left;
+    font-weight: bold;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.looking-for .title {
+    margin-right: 3px;
+}
+
+.profile-pic {
+    width: calc(100% - 40px);
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.looking-for {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.second-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.description .title {
+    margin-right: 3px;
+}
