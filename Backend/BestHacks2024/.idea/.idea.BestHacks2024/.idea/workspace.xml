@@ -9,13 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployeeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployeeService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" afterDir="false" />
-    </list>
+    <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,28 +37,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.Unnamed.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.Unnamed.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ],
-    "rider.external.source.directories": [
-      "/Users/bartlomiejsawicki/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
-      "/Users/bartlomiejsawicki/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
-      "/Users/bartlomiejsawicki/Library/Application Support/Symbols/src"
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/bartlomiejsawicki/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/bartlomiejsawicki/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
+      &quot;/Users/bartlomiejsawicki/Library/Application Support/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Unnamed" type="DotNetProject" factoryName=".NET Project" nameIsGenerated="true">
       <option name="EXE_PATH" value="$PROJECT_DIR$/BestHacks2024/bin/Debug/net8.0/BestHacks2024.dll" />
