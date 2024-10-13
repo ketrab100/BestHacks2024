@@ -40,6 +40,28 @@ public class EmployeeController : ControllerBase
         var identity = HttpContext.User.Identity as ClaimsIdentity;
         var employee = await _employeeService.GetEmployeeByIdAsync(Guid.Parse(identity.FindFirst("id").Value)) ?? throw new ArgumentException("Employee not found");
 
+        var tags = new List<TagDto>();
+        foreach (var tag in employee.UserTags)
+        {
+            TagDto tagDto = new TagDto();
+            tagDto.Id = tag.TagId;
+            tagDto.Name = tag.Tag.Name;
+            tags.Add(tagDto);
+        }
+
+        var employeeDto = new EmployeeDto()
+        {
+            Id = employee.Id,
+            FirstName = employee.FirstName,
+            LastName = employee.LastName,
+            Email = employee.Email,
+            Bio = employee.Bio,
+            Location = employee.Location,
+            Experience = employee.ExperienceLevel,
+            ImageBase64 = Convert.ToBase64String(employee.Image ?? new byte[0]),
+            Tags = tags
+        };
+        
         return Ok(employee);
     }
 
@@ -71,7 +93,7 @@ public class EmployeeController : ControllerBase
     {
         var identity = HttpContext.User.Identity as ClaimsIdentity;
         var id = Guid.Parse(identity.FindFirst("id").Value);
-        var updatedEmployee = await _employeeService.UpdateEmployeeProfileAsync(id, dto);
+        var updatedEmployee = await _employeeService.UpdateEmployeeAsync(id, dto);
         if (updatedEmployee == null) return NotFound();
 
         return Ok(updatedEmployee);

@@ -10,17 +10,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/EmployerAiDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/MatchController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/TagController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/AddConversationDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/ConversationDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/SwipeDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/ITagService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BestHacks2024/Services/TagService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources/a7a18fb7-2454-4d4a-8f3a-4104e1504f81.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/BestHacks2024.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/BestHacks2024.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Controllers/EmployeerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Employee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Employee.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Employer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Employer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Match.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Match.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Tag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Database/Entities/Tag.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Dtos/EmployeeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/EmployeeDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Dtos/EmployerDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/EmployerDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Dtos/MatchDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/MatchDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Dtos/TagDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Dtos/TagDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployeeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployeeService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IEmployerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Interfaces/IMatchService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Interfaces/IMatchService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Mappings/MappingProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Mappings/MappingProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012193730_employeer tags.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012193730_employeer tags.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012193730_employeer tags.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012193730_employeer tags.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012194458_121020242144_db_changes.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012194458_121020242144_db_changes.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012194458_121020242144_db_changes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Migrations/20241012194458_121020242144_db_changes.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/Migrations/BestHacksDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Migrations/BestHacksDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BestHacks2024/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/MatchService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/MatchService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +55,17 @@
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bb939ba27b4d9398abf93ba518e2affb62c755a26fa3eef9fba34cf1b41b56/RestClient.Extensions.Get.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/Database/BestHacksDbContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/Database/Entities/EmployerTag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/Database/Entities/Tag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/Mappings/MappingProfile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/Services/MatchService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Gabriel/Documents/GitHub/BestHacks2024/Backend/BestHacks2024/BestHacks2024/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BestHacks2024/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Gabriel/Documents/GitHub/BestHacks2024/Backend/BestHacks2024/BestHacks2024/appsettings.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -72,6 +102,8 @@
       <updated>1728743794065</updated>
       <workItem from="1728743795850" duration="2935000" />
       <workItem from="1728747357900" duration="8630000" />
+      <workItem from="1728778432054" duration="518000" />
+      <workItem from="1728779020377" duration="1592000" />
     </task>
     <servers />
   </component>

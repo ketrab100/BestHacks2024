@@ -77,10 +77,10 @@ namespace BestHacks2024.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("DidEmployeeAcceptJobOffer")
+                    b.Property<bool?>("DidEmployeeAcceptJobOffer")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("DidEmployerAcceptCandidate")
+                    b.Property<bool?>("DidEmployerAcceptCandidate")
                         .HasColumnType("boolean");
 
                     b.Property<Guid>("EmployerId")
@@ -354,6 +354,9 @@ namespace BestHacks2024.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -369,6 +372,9 @@ namespace BestHacks2024.Migrations
 
                             t.Property("ExperienceLevel")
                                 .HasColumnName("Employee_ExperienceLevel");
+
+                            t.Property("Image")
+                                .HasColumnName("Employee_Image");
 
                             t.Property("Location")
                                 .HasColumnName("Employee_Location");
@@ -396,6 +402,9 @@ namespace BestHacks2024.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea");
+
                     b.Property<string>("JobDescription")
                         .IsRequired()
                         .HasColumnType("text");
@@ -407,11 +416,6 @@ namespace BestHacks2024.Migrations
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<Guid?>("TagId")
-                        .HasColumnType("uuid");
-
-                    b.HasIndex("TagId");
 
                     b.HasDiscriminator().HasValue("Employer");
                 });
@@ -444,7 +448,7 @@ namespace BestHacks2024.Migrations
                         .IsRequired();
 
                     b.HasOne("BestHacks2024.Database.Entities.Tag", "Tag")
-                        .WithMany()
+                        .WithMany("EmployerTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -541,13 +545,6 @@ namespace BestHacks2024.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BestHacks2024.Database.Entities.Employer", b =>
-                {
-                    b.HasOne("BestHacks2024.Database.Entities.Tag", null)
-                        .WithMany("EmployerTags")
-                        .HasForeignKey("TagId");
                 });
 
             modelBuilder.Entity("BestHacks2024.Database.Entities.Match", b =>

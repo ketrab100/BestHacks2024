@@ -2,6 +2,7 @@ using BestHacks2024.Database;
 using BestHacks2024.Database.Entities;
 using BestHacks2024.Dtos;
 using BestHacks2024.Interfaces;
+using BestHacks2024.Migrations;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 
@@ -34,7 +35,7 @@ public class EmployerService : IEmployerService
 
     public async Task<List<Employer>> GetNextEmployers(Guid id, CancellationToken cancellationToken)
     {
-        var options = new RestClientOptions($"http://localhost:8000/matches/");
+        var options = new RestClientOptions($"http://ai:8000/matches/");
         var client = new RestClient(options);
         var request = new RestRequest($"job/{id}/");
         var response = await client.GetAsync<List<EmployerAiDto>>(request, cancellationToken);
@@ -57,14 +58,54 @@ public class EmployerService : IEmployerService
         return employers;
     }
 
-    public async Task<Employer> CreateEmployer(EmployerDto employer)
+    public async Task<Employer> CreateEmployerAsync(EmployerDto employerDto)
     {
-        throw new NotImplementedException();
+        var tagIds = employerDto.Tags.Select(t => t.Id).ToList();
+        var existingTags = await _context.Tags
+            .Where(t => tagIds.Contains(t.Id))
+            .ToListAsync();
+
+        var employer = new Employer()
+        {
+            CompanyName = employerDto.CompanyName,
+            ContactName = employerDto.Email,
+            JobTitle = employerDto.JobTitle,
+            JobDescription = employerDto.JobDescription,
+            Location = employerDto.Location,
+            ExperienceLevel = employerDto.ExperienceLevel,
+            Image = Convert.FromBase64String(employerDto.ImageBase64 ?? ""),
+        };
+        
+        employer.CreatedAt = DateTime.UtcNow;
+
+        employer.EmployerTags = existingTags.Select(tag => new EmployerTag()
+        {
+            Tag = tag,
+            Employer = employer
+        }).ToList();
+
+        var newEmployer = _context.Employers.Add(employer);
+        var employerTags = employerDto.Tags.Select(x => new EmployerTag() { TagId = x.Id, EmployerId = newEmployer.Entity.Id });
+        await _context.EmployerTags.AddRangeAsync(employerTags);
+        await _context.SaveChangesAsync();
+
+        return newEmployer.Entity;
     }
 
-    public async Task<Employer> UpdateEmployer(Guid id, EmployerDto employer)
+    public async Task<Employer> UpdateEmployerAsync(Guid id, EmployerDto employerDto)
     {
-        throw new NotImplementedException();
+        var employer = await _context.Employers
+            .Include(e => e.EmployerTags)
+            .FirstOrDefaultAsync(e => e.Id == id);
+
+        if (employer == null)
+            throw new KeyNotFoundException("Employee not found");
+        
+        var employerTags = employerDto.Tags.Select(x => new EmployerTag { TagId = x.Id, EmployerId = employer.Id});
+        employer.EmployerTags = employerTags.ToList();
+        
+        await _context.SaveChangesAsync();
+        return employer;
     }
 
     public async Task DeleteEmployer(Guid id)

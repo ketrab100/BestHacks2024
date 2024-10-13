@@ -46,16 +46,16 @@ public class EmployeeService : IEmployeeService
             .Where(t => tagIds.Contains(t.Id))
             .ToListAsync();
 
-        foreach (var tag in employeeDto.Tags)
+        var employee = new Employee()
         {
-            if (!existingTags.Any(t => t.Id == tag.Id))
-            {
-                _context.Tags.Add(tag);
-                existingTags.Add(tag);
-            }
-        }
-
-        var employee = _mapper.Map<Employee>(employeeDto);
+            FirstName = employeeDto.FirstName,
+            LastName = employeeDto.LastName,
+            Email = employeeDto.Email,
+            Bio = employeeDto.Bio,
+            Location = employeeDto.Location,
+            ExperienceLevel = employeeDto.Experience,
+            Image = Convert.FromBase64String(employeeDto.ImageBase64 ?? ""),
+        };
         employee.CreatedAt = DateTime.UtcNow;
 
         employee.UserTags = existingTags.Select(tag => new UserTag
@@ -64,7 +64,9 @@ public class EmployeeService : IEmployeeService
             User = employee
         }).ToList();
 
-        _context.Employees.Add(employee);
+        var newEmployee = _context.Employees.Add(employee);
+        var userTags = employeeDto.Tags.Select(x => new UserTag { TagId = x.Id, UserId = newEmployee.Entity.Id });
+        await _context.UserTags.AddRangeAsync(userTags);
         await _context.SaveChangesAsync();
 
         return employee;
@@ -78,80 +80,13 @@ public class EmployeeService : IEmployeeService
 
         if (employee == null)
             throw new KeyNotFoundException("Employee not found");
-
-        _mapper.Map(employeeDto, employee);
-
-        var tagIds = employeeDto.Tags.Select(t => t.Id).ToList();
-
-        var existingTags = await _context.Tags
-            .Where(t => tagIds.Contains(t.Id))
-            .ToListAsync();
-
-        foreach (var tag in employeeDto.Tags)
-        {
-            if (!existingTags.Any(t => t.Id == tag.Id))
-            {
-                _context.Tags.Add(tag);
-                existingTags.Add(tag);
-            }
-        }
-
-        employee.UserTags.Clear();
-
-        employee.UserTags = existingTags.Select(tag => new UserTag
-        {
-            Tag = tag,
-            User = employee
-        }).ToList();
-
-        _context.Employees.Update(employee);
+        
+        var userTags = employeeDto.Tags.Select(x => new UserTag { TagId = x.Id, UserId = employee.Id});
+        employee.UserTags = userTags.ToList();
+        
         await _context.SaveChangesAsync();
-
         return employee;
     }
-
-    public async Task<Employee?> UpdateEmployeeProfileAsync(Guid id, EmployeeDto employeeDto)
-    {
-        var employee = await _context.Employees
-            .Include(e => e.UserTags)
-            .FirstOrDefaultAsync(e => e.Id == id);
-
-        if (employee == null)
-            throw new KeyNotFoundException("Employee not found");
-
-        _mapper.Map(employeeDto, employee);
-
-        var employeeTags = employeeDto.Tags.Select(x => x.Name).ToList();
-
-        var tags = await _context.Tags
-            .Select(x => x.Name)
-            .ToListAsync();
-
-        var commonTags = tags.Intersect(employeeTags);
-
-        //foreach (var tag in commonTags) 
-        //{
-        //    var tagObj = new Tag { Name = tag };
-        //    employee.UserTags.Add(new UserTag
-        //    {
-        //        Emp
-        //    });
-        //}
-
-        //employee.UserTags.Clear();
-
-        //employee.UserTags = existingTags.Select(tag => new UserTag
-        //{
-        //    Tag = tag,
-        //    User = employee
-        //}).ToList();
-
-        _context.Employees.Update(employee);
-        await _context.SaveChangesAsync();
-
-        return employee;
-    }
-
     public async Task DeleteEmployeeAsync(Guid id)
     {
         var employee = await _context.Employees

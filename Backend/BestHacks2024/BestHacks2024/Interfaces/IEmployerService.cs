@@ -9,7 +9,7 @@ public interface IEmployerService
     public Task<Employer?> GetEmployerByIdAsync(Guid id);
     public Task<List<Employer>?> GetNextEmployers(Guid id, CancellationToken cancellationToken);
     
-    public Task<Employer> CreateEmployer(EmployerDto employer);
-    public Task<Employer> UpdateEmployer(Guid id, EmployerDto employer);
+    public Task<Employer> CreateEmployerAsync(EmployerDto employer);
+    public Task<Employer> UpdateEmployerAsync(Guid id, EmployerDto employer);
     public Task DeleteEmployer(Guid id);
 }

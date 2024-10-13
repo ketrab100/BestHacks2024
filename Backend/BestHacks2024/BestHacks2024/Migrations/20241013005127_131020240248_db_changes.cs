@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BestHacks2024.Migrations
 {
     /// <inheritdoc />
-    public partial class _121020242144_db_changes : Migration
+    public partial class _131020240248_db_changes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,47 @@ namespace BestHacks2024.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Discriminator = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Bio = table.Column<string>(type: "text", nullable: true),
+                    Employee_Location = table.Column<string>(type: "text", nullable: true),
+                    Employee_ExperienceLevel = table.Column<string>(type: "text", nullable: true),
+                    Employee_CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Employee_Image = table.Column<byte[]>(type: "bytea", nullable: true),
+                    CompanyName = table.Column<string>(type: "text", nullable: true),
+                    ContactName = table.Column<string>(type: "text", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    JobTitle = table.Column<string>(type: "text", nullable: true),
+                    JobDescription = table.Column<string>(type: "text", nullable: true),
+                    Location = table.Column<string>(type: "text", nullable: true),
+                    ExperienceLevel = table.Column<string>(type: "text", nullable: true),
+                    Image = table.Column<byte[]>(type: "bytea", nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,51 +98,6 @@ namespace BestHacks2024.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Discriminator = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: true),
-                    LastName = table.Column<string>(type: "text", nullable: true),
-                    Bio = table.Column<string>(type: "text", nullable: true),
-                    Employee_Location = table.Column<string>(type: "text", nullable: true),
-                    Employee_ExperienceLevel = table.Column<string>(type: "text", nullable: true),
-                    Employee_CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CompanyName = table.Column<string>(type: "text", nullable: true),
-                    ContactName = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    JobTitle = table.Column<string>(type: "text", nullable: true),
-                    JobDescription = table.Column<string>(type: "text", nullable: true),
-                    Location = table.Column<string>(type: "text", nullable: true),
-                    ExperienceLevel = table.Column<string>(type: "text", nullable: true),
-                    TagId = table.Column<Guid>(type: "uuid", nullable: true),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -190,36 +186,12 @@ namespace BestHacks2024.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmployerTags",
-                columns: table => new
-                {
-                    EmployerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TagId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployerTags", x => new { x.EmployerId, x.TagId });
-                    table.ForeignKey(
-                        name: "FK_EmployerTags_AspNetUsers_EmployerId",
-                        column: x => x.EmployerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EmployerTags_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Matches",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DidEmployeeAcceptJobOffer = table.Column<bool>(type: "boolean", nullable: false),
-                    DidEmployerAcceptCandidate = table.Column<bool>(type: "boolean", nullable: false),
+                    DidEmployeeAcceptJobOffer = table.Column<bool>(type: "boolean", nullable: true),
+                    DidEmployerAcceptCandidate = table.Column<bool>(type: "boolean", nullable: true),
                     AreMatched = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -239,6 +211,30 @@ namespace BestHacks2024.Migrations
                         name: "FK_Matches_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployerTags",
+                columns: table => new
+                {
+                    EmployerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TagId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployerTags", x => new { x.EmployerId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_EmployerTags_AspNetUsers_EmployerId",
+                        column: x => x.EmployerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployerTags_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -326,11 +322,6 @@ namespace BestHacks2024.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_TagId",
-                table: "AspNetUsers",
-                column: "TagId");
-
-            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -401,10 +392,10 @@ namespace BestHacks2024.Migrations
                 name: "Matches");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "AspNetUsers");
         }
     }
 }

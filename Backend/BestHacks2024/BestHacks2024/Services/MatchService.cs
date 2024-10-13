@@ -1,6 +1,7 @@
 using AutoMapper;
 using BestHacks2024.Database;
 using BestHacks2024.Database.Entities;
+using BestHacks2024.Dtos;
 using BestHacks2024.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,12 +10,10 @@ namespace BestHacks2024.Services;
 public class MatchService : IMatchService
 {
     private readonly BestHacksDbContext _context;
-    private readonly IMapper _mapper;
     
-    public MatchService(BestHacksDbContext context, IMapper mapper)
+    public MatchService(BestHacksDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<ICollection<Match>> GetMatchesAsync()
@@ -51,66 +50,98 @@ public class MatchService : IMatchService
             .ToListAsync();
     }
 
-    public async Task<Match> CreateMatchAsync(MatchDto matchDto)
+    public async Task<Match> CreateMatchAsync(Guid userId, SwipeDto swipeDto)
     {
-        var employee = await _context.Employees.FirstOrDefaultAsync(x=> x.Id == matchDto.EmployeeId);
+        Employee? employee;
+        Employer? employer;
+        
+        employee = await _context.Employees.FirstOrDefaultAsync(x=> x.Id == userId);
         if (employee == null)
         {
-            throw new KeyNotFoundException("Employee not found");
+            employer = await _context.Employers.FirstOrDefaultAsync(x => x.Id == userId) ?? throw new NullReferenceException("Could not find employer");
+            employee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == swipeDto.SwipedId) ?? throw new NullReferenceException("Could not find employee");
+        }
+        else
+        {
+            employer = await _context.Employers.FirstOrDefaultAsync(x => x.Id == swipeDto.SwipedId) ?? throw new NullReferenceException("Could not find employer");
         }
 
-        var employer = await _context.Employers.FirstOrDefaultAsync(x=> x.Id == matchDto.JobId);
-        if(employer == null)
-            throw new KeyNotFoundException("Employer not found");
+        var match = await _context
+            .Matches
+            .Where(x => x.Employee.Id == employee.Id && x.Employer.Id == employer.Id)
+            .FirstOrDefaultAsync();
+        if (match is null)
+        {
+            match = new Match();
+            match.Employee = employee;
+            match.Employer = employer;
 
-        var match = _mapper.Map<Match>(matchDto);
+            match.DidEmployerAcceptCandidate = swipeDto.SwipedId == employee.Id && swipeDto.SwipeResult;
+            match.DidEmployeeAcceptJobOffer = swipeDto.SwipedId == employer.Id && swipeDto.SwipeResult;
+        }
+        else
+        {
+            if (match.DidEmployerAcceptCandidate is null) match.DidEmployerAcceptCandidate = swipeDto.SwipeResult;
+            else if (match.DidEmployeeAcceptJobOffer is null) match.DidEmployeeAcceptJobOffer = swipeDto.SwipeResult;
+        }
 
-        match.Employee = employee;
-        match.Employer = employer;
-        match.AreMatched = matchDto.DidEmployerAcceptCandidate && matchDto.DidEmployeeAcceptJobOffer;
-
+        if (match.DidEmployerAcceptCandidate is not null && match.DidEmployeeAcceptJobOffer is not null)
+            match.AreMatched = match.DidEmployerAcceptCandidate.Value && match.DidEmployeeAcceptJobOffer.Value;
+        else
+        {
+            match.AreMatched = false;
+        }
         _context.Matches.Add(match);
         await _context.SaveChangesAsync();
 
         return match;
     }
 
-    public async Task<Match?> UpdateMatchAsync(Guid matchId, MatchDto matchDto)
+    public async Task<Match?> UpdateMatchAsync(Guid userId, SwipeDto swipeDto)
     {
-        var existingMatch = await _context.Matches
-            .Include(m => m.Employee)
-            .Include(m => m.Employer)
-            .FirstOrDefaultAsync(m => m.Id == matchId);
-
-        if (existingMatch == null)
-        {
-            throw new KeyNotFoundException("Match not found");
-        }
-
-        var employee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == matchDto.EmployeeId);
+        Employee? employee;
+        Employer? employer;
+        
+        employee = await _context.Employees.FirstOrDefaultAsync(x=> x.Id == userId);
         if (employee == null)
         {
-            throw new KeyNotFoundException("Employee not found");
+            employer = await _context.Employers.FirstOrDefaultAsync(x => x.Id == userId) ?? throw new NullReferenceException("Could not find employer");
+            employee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == swipeDto.SwipedId) ?? throw new NullReferenceException("Could not find employee");
         }
-
-        var employer = await _context.Employers.FirstOrDefaultAsync(x=> x.Id == matchDto.JobId);
-        if (employer == null)
+        else
         {
-            throw new KeyNotFoundException("Employer not found");
+            employer = await _context.Employers.FirstOrDefaultAsync(x => x.Id == swipeDto.SwipedId) ?? throw new NullReferenceException("Could not find employer");
         }
 
-        _mapper.Map(matchDto, existingMatch);
+        var match = await _context
+            .Matches
+            .Where(x => x.Employee.Id == employee.Id && x.Employer.Id == employer.Id)
+            .FirstOrDefaultAsync();
+        if (match is null)
+        {
+            match = new Match();
+            match.Employee = employee;
+            match.Employer = employer;
 
-        existingMatch.Employee = employee;
-        existingMatch.Employer = employer;
+            match.DidEmployerAcceptCandidate = swipeDto.SwipedId == employee.Id && swipeDto.SwipeResult;
+            match.DidEmployeeAcceptJobOffer = swipeDto.SwipedId == employer.Id && swipeDto.SwipeResult;
+        }
+        else
+        {
+            if (match.DidEmployerAcceptCandidate is null) match.DidEmployerAcceptCandidate = swipeDto.SwipeResult;
+            else if (match.DidEmployeeAcceptJobOffer is null) match.DidEmployeeAcceptJobOffer = swipeDto.SwipeResult;
+        }
 
-        existingMatch.DidEmployerAcceptCandidate = matchDto.DidEmployerAcceptCandidate;
-        existingMatch.DidEmployeeAcceptJobOffer = matchDto.DidEmployeeAcceptJobOffer;
-
-        _context.Matches.Update(existingMatch);
+        if (match.DidEmployerAcceptCandidate is not null && match.DidEmployeeAcceptJobOffer is not null)
+            match.AreMatched = match.DidEmployerAcceptCandidate.Value && match.DidEmployeeAcceptJobOffer.Value;
+        else
+        {
+            match.AreMatched = false;
+        }
+        _context.Matches.Add(match);
         await _context.SaveChangesAsync();
 
-        return existingMatch;
+        return match;
     }
 
     public async Task DeleteMatchAsync(Guid matchId)

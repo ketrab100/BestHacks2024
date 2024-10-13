@@ -12,6 +12,4 @@ public interface IEmployeeService
     public Task<Employee?> CreateEmployeeAsync(EmployeeDto employee);
     public Task<Employee?> UpdateEmployeeAsync(Guid id, EmployeeDto employee);
     public Task DeleteEmployeeAsync(Guid id);
-
-    public Task<Employee?> UpdateEmployeeProfileAsync(Guid id, EmployeeDto employeeProfileDto);
 }
