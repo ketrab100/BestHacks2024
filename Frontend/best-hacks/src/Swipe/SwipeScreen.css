@@ -5,13 +5,15 @@
     /* Wymusza płynne przewijanie w osi Y */
     overflow-y: scroll;
     /* Umożliwia przewijanie */
-    transition: background-color 0.3s ease-in-out;
     margin: 30px;
     border-radius: 8px;
+    transition: transform 15s;
+    font-size: 20px;
+    transform-origin: bottom;
 }
 
 .snap-section {
-    height: calc(100vh - 30px);
+    min-height: calc(100vh - 130px);
     /* Każda sekcja zajmuje cały ekran */
     scroll-snap-align: start;
     /* Sekcje przyklejają się do początku */
@@ -25,25 +27,25 @@
 }
 
 .arrow-down {
+    position: absolute;
+    bottom: 5px;
     height: 20px;
     width: 20px;
 }
 
-ul::before {
-    content:attr(aria-label);
-    font-size:120%;
-    font-weight:bold;
-    margin-left:-32px;
+.summary {
+    align-self: flex-start;
 }
 
 .first-section {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1px;
     align-items: center;
 }
 
-.credentials {
+.credentials-card {
     width: 100%;
     font-size: 40px;
     text-align: left;
@@ -52,6 +54,7 @@ ul::before {
 
 .title {
     font-weight: bold;
+    margin-right: 3px;
 }
 
 .looking-for .title {
@@ -79,4 +82,22 @@ ul::before {
 
 .description .title {
     margin-right: 3px;
+}
+
+.deny-icon {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    bottom: 10%;
+    right: 45%;
+    transition: ease-in 0.3px;
+}
+
+.match-icon {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    bottom: 10%;
+    right: 45%;
+    transition: ease-in 0.3px;
 }
