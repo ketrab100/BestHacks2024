@@ -64,12 +64,12 @@ public class EmployeeService : IEmployeeService
         var restOfEmployees = await _context.Employees
             .Include(x => x.UserTags)
             .ThenInclude(x => x.Tag)
-            //.Where(x=> x.Matches.Any(y=>y.JobId!=employer.Id)) jak nikt nie ma matchy to wypierdala goœcia
-            .Where(x => x.UserTags.Any(y => employerTags.Contains(y.TagId)))
+            //.Where(x=> x.Matches.Any(y=>y.JobId!=employer.Id)) jak nikt nie ma matchy to wypierdala goï¿½cia
+            // .Where(x => x.UserTags.Any(y => employerTags.Contains(y.TagId)))
             .OrderBy(x=>x.Id).Take(10-aiJobs.Count).ToListAsync(cancellationToken);
         
         employees = employees.Concat(restOfEmployees).ToList();
-        return employees.Select(Mappers.MapToEmployeeDto).ToList(); // tu powinno byæ dto !!
+        return employees.Select(Mappers.MapToEmployeeDto).ToList(); // tu powinno byï¿½ dto !!
     }
 
     public async Task<Employee?> CreateEmployeeAsync(EmployeeDto employeeDto)

@@ -19,14 +19,11 @@ const employeeSlice = createSlice({
     initialState,
     reducers: {
         updateEmployees: (state, action) => {
-            return {index: 0, employees: action.payload, currentEmployee: action.payload[0]}
+            return {index: 0, employees: action.payload, currentEmployee: action.payload[0]};
         },
         getNext: (state) => {
-            if (state.employees[state.index + 1] == undefined) {
-                return {...state, index: 0}
-                //api call to get next
-            }
-            return {...state, index: state.index + 1}
+            state.index += 1;
+            state.currentEmployee = state.employees[state.index]
         }
     },
     selectors: {
