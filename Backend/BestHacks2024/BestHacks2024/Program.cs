@@ -130,6 +130,27 @@ namespace BestHacks2024
 
             app.MapControllers();
 
+            if (bool.Parse(builder.Configuration["ShouldGenerateMockData"]))
+            {
+                using (var mockScope = app.Services.CreateScope())
+                {
+                    var dbContext = mockScope.ServiceProvider.GetRequiredService<BestHacksDbContext>();
+
+                    if (!dbContext.Employees.Any() && !dbContext.Employers.Any() && !dbContext.Matches.Any())
+                    {
+                        var employees = StaticMockDataGenerator.GenerateEmployees(10);
+                        var employers = StaticMockDataGenerator.GenerateEmployers(10);
+                        var matches = StaticMockDataGenerator.GenerateMatches(employees, employers);
+
+                        dbContext.Employees.AddRange(employees);
+                        dbContext.Employers.AddRange(employers);
+                        dbContext.Matches.AddRange(matches);
+
+                        dbContext.SaveChanges();
+                    }
+                }
+            }
+
             app.Run();
         }
     }
