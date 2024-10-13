@@ -15,7 +15,44 @@ function SwipeScreen() {
     const touchEndX = React.useRef(0);   // Przechowuje pozycję X końca dotyku
     const touchStartY = React.useRef(0); // Przechowuje pozycję X początku dotyku
     const touchEndY = React.useRef(0);   // Przechowuje pozycję X końca dotyku
-
+    const previousJobs: { jobName: string, position: string }[] = [
+        {
+            jobName: 'Nokia',
+            position: 'Junior C++ Dev'
+        },
+        {
+            jobName: 'Tietoevry',
+            position: 'Regular C++ Dev'
+        },
+        {
+            jobName: 'Watykan Code Solutions',
+            position: 'Junior Frontend Dev'
+        },
+        {
+            jobName: 'Kod-pol',
+            position: 'Regular Frontend Dev'
+        }
+    ]
+    const skills: { technology: string }[] = [
+        { technology: 'C++' },
+        { technology: 'C' },
+        { technology: 'GitHub' },
+        { technology: 'Dodge' },
+        { technology: 'JeDzie' },
+        { technology: 'Dodge' }
+    ]
+    const lookingFor: { position: string, level: string }[] = [
+        {
+            position: 'Frontend Developer',
+            level: 'Senior'
+        },
+        {
+            position: 'Fullstack Developer',
+            level: 'Junior'
+        }
+    ]
+    const description: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere odio nec laoreet rhoncus. Cras eget fringilla elit, ut semper massa. Nunc congue sodales nunc, egestas volutpat odio. Sed ac elementum purus, sed faucibus augue. Aliquam lobortis sem felis, non consequat ligula condimentum vel. Phasellus vel ligula at massa malesuada dictum. Nullam eget blandit purus, nec cursus augue. Curabitur in eros rhoncus, dignissim nisl facilisis, feugiat purus.'
+    const email: string = 'essa@gmail.com'
 
     const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
         touchStartX.current = e.touches[0].clientX;
@@ -48,32 +85,14 @@ function SwipeScreen() {
              onTouchEnd={handleTouchEnd}
              style={{backgroundColor: bgColor}}>
             <section className="snap-section first-section">
-                <div className="profile-pic" style={{backgroundImage: `url(${employee.imageUrl})`}}/>
-                <span className="credentials"><span
-                    className="name">{employee.firstName}</span> {employee.lastName}</span>
-                <div className="summary">
-                    <ul className="career" aria-label="Career Summary">
-                        {/*{previousJobs.slice(0, 2).map((job) => {*/}
-                        {/*    return <li>*/}
-                        {/*        {job.jobName} | {job.position}*/}
-                        {/*    </li>*/}
-                        {/*})}*/}
-                    </ul>
-                    <ul className="skills" aria-label="Skills">
-                        {/*{skills.slice(0, 2).map((skill) => {*/}
-                        {/*    return <li>*/}
-                        {/*        {skill.technology}*/}
-                        {/*    </li>*/}
-                        {/*})}*/}
-                    </ul>
-                    <div className="looking-for">
-                        <span className="title">Interested in:</span>
-                        {/*{lookingFor.map((proposition) => {*/}
-                        {/*    return <span>*/}
-                        {/*        {proposition.position} | {proposition.level}*/}
-                        {/*    </span>*/}
-                        {/*})}*/}
-                    </div>
+                <div className="profile-pic" style={{ backgroundImage: `url(${employee.imageUrl})` }} />
+                <span className="credentials"><span className="name">Jan</span> Kowalski</span>
+                <div className="tags-container">
+                    {skills.slice(0, 5).map((skill) => {
+                        return <div className="tag">
+                            {skill.technology}
+                        </div>
+                    })}
                 </div>
                 <img className="arrow-down" src={arrow_down}></img>
             </section>
@@ -84,20 +103,12 @@ function SwipeScreen() {
                     </span>
                     <span>{employee.bio}</span>
                 </div>
-                <ul className="career" aria-label="Full career summary">
-                    {/*{previousJobs.map((job) => {*/}
-                    {/*    return <li>*/}
-                    {/*        {job.jobName} | {job.position}*/}
-                    {/*    </li>*/}
-                    {/*})}*/}
-                </ul>
-                <ul className="skills" aria-label="All skills">
-                    {employee.tags.map((skill) => {
-                        return <li>
-                            {skill.name}
-                        </li>
-                    })}
-                </ul>
+                <div className="description">
+                    <span className="title">
+                        Email:
+                    </span>
+                    <span>{email}</span>
+                </div>
             </section>
         </div>
     )

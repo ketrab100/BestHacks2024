@@ -59,7 +59,7 @@ ul::before {
 }
 
 .profile-pic {
-    width: calc(100% - 60px);
+    width: auto;
     aspect-ratio: 1 / 1;
     background-repeat: no-repeat;
     background-size: cover;
@@ -79,4 +79,28 @@ ul::before {
 
 .description .title {
     margin-right: 3px;
+}
+
+.tag {
+    display: inline-block; /* Umożliwia tagom zajmowanie miejsca tylko na niezbędną szerokość */
+    padding: 5px 5px; /* Odsunięcie wewnętrzne */
+    border-radius: 15px; /* Zaokrąglenie rogów */
+    font-size: 20px; /* Rozmiar czcionki */
+    color: #2ca9bc; /* Kolor tekstu */
+    cursor: pointer; /* Wskazanie, że tagi są interaktywne */
+    border: 2px solid #2ca9bc; /* Ustal obramowanie jako szare, nieprzezroczyste */
+    height: fit-content;
+}
+
+.tags-container {
+    display: flex; /* Umożliwia ułożenie elementów w linii */
+    flex-wrap: wrap; /* Pozwala na zawijanie tagów w nowy wiersz, jeśli nie ma wystarczająco dużo miejsca */
+    gap: 5px; /* Odstęp między tagami */
+    padding: 10px; /* Odsunięcie wewnętrzne od krawędzi kontenera */
+    border: 1px solid #ccc; /* Opcjonalne: obramowanie kontenera */
+    border-radius: 10px; /* Opcjonalne: zaokrąglenie rogów kontenera */
+    background-color: #f8f9fa; /* Opcjonalne: kolor tła kontenera */
+    width: auto; /* Ustaw szerokość kontenera na 80% rodzica */
+    margin: 0 auto; /* Centruje kontener w poziomie */
+    height: auto;
 }
