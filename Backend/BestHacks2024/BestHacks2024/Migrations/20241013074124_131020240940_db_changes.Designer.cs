@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BestHacks2024.Migrations
 {
     [DbContext(typeof(BestHacksDbContext))]
-    [Migration("20241013023509_customSql")]
-    partial class customSql
+    [Migration("20241013074124_131020240940_db_changes")]
+    partial class _131020240940_db_changes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
