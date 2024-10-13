@@ -47,20 +47,23 @@ function SwipeScreen() {
     };
 
     const handleTouchEnd = async () => {
-        if (Math.abs(touchStartX.current - touchEndX.current) < Math.abs(touchStartY.current - touchEndY.current)){
-            setDegree(0);
+        
+        if (Math.abs(touchStartX.current - touchEndX.current) < 50 && Math.abs(touchStartX.current - touchEndX.current) < Math.abs(touchStartY.current - touchEndY.current))
+            {
+                setDegree(0);
             setDenyIconVis(0);
             setMatchIconVis(0);
-            return;
-        }
-            
+            return;}
         if (touchStartX.current > touchEndX.current + 50) {
             // Przesunięcie w lewo
+            setBgColor("#faebd7"); // Zmieniamy kolor na inny
             // Otherwise, just go to the next employee
             await addSwipe(false, store.getState().employeeReducer.employees[store.getState().employeeReducer.index].id)
             store.dispatch(getNext());
+
         } else if (touchStartX.current < touchEndX.current - 50) {
             // Przesunięcie w prawo
+            setBgColor("#add8e6"); // Zmieniamy kolor na jeszcze inny
             await addSwipe(true, store.getState().employeeReducer.employees[store.getState().employeeReducer.index].id)
             store.dispatch(getNext());
         }
@@ -69,16 +72,17 @@ function SwipeScreen() {
                 store.dispatch(updateEmployees(res))
             })
         }
-        if (Math.abs(touchStartX.current - touchEndX.current) < Math.abs(touchStartY.current - touchEndY.current)){
-            const fetchedEmployee = store.getState().employeeReducer.employees[store.getState().employeeReducer.index]
-            setEmployee(fetchedEmployee);
-        }
+        const fetchedEmployee = store.getState().employeeReducer.employees[store.getState().employeeReducer.index]
+        setEmployee(fetchedEmployee)
         setDegree(0);
-        setDenyIconVis(0);
-        setMatchIconVis(0);
+            setDenyIconVis(0);
+            setMatchIconVis(0);
+            return;
     };
 
     const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        touchEndX.current = e.touches[0].clientX;
+        touchEndY.current = e.touches[0].clientY;
         if (Math.abs(touchStartX.current - e.touches[0].clientX) < Math.abs(touchStartY.current - e.touches[0].clientY)){
             setDegree(0);
             setDenyIconVis(0);
@@ -93,8 +97,6 @@ function SwipeScreen() {
             setMatchIconVis(1);
         }
         setDegree((e.touches[0].clientX - touchStartX.current) / 3);
-        touchEndX.current = e.touches[0].clientX;
-        touchEndY.current = e.touches[0].clientY;
     };
     return (
         <div className="scroll-container"
@@ -106,7 +108,7 @@ function SwipeScreen() {
             }}>
             <section className="snap-section first-section">
                 <div className="profile-pic"
-                     style={{backgroundImage: `url(${employeesMock[store.getState().employeeReducer.index].imageBase64})`}}/>
+                     style={{backgroundImage: `url(${employeesMock[store.getState().employeeReducer.index%3].imageBase64})`}}/>
                 <span className="credentials-card"><span
                     className="name">{employee!.firstName}</span> {employee!.lastName}</span>
                 <div className="summary">

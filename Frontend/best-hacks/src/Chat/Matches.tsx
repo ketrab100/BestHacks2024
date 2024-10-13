@@ -48,6 +48,8 @@ export default function Matches() {
                         id: x.employer?.id
                     };
                 }) as SingleMatchProps[];
+
+                console.log(matches);
             } catch (error) {
                 console.error("Failed to fetch employee data:", error);
             }
@@ -60,25 +62,25 @@ export default function Matches() {
             name: 'Michał',
             skills: ['JS,', 'TS,', 'Angular'],
             position: 'Frontend Dev Senior',
-            id: 'sdasd'
+            id: '1'
         },
         {
             name: 'Jan',
             skills: ['C++,', 'C'],
             position: 'C++ Dev Senior',
-            id: 'sdasd'
+            id: '2'
         },
         {
             name: 'Maria',
             skills: ['Python,', 'Django,', 'Flask'],
             position: 'Backend Dev Junior',
-            id: 'sdasd'
+            id: '3'
         },
         {
             name: 'Franciszek',
             skills: ['Talent Aquisition', 'HR'],
             position: 'HR specialist regular',
-            id: 'sdasd'
+            id: '4'
         }
     ]
 
