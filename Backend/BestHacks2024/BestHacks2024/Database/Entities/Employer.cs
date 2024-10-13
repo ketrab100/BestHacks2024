@@ -11,6 +11,6 @@ public class Employer : User
     public string Location { get; set; }
     public string ExperienceLevel { get; set; }
     public byte[]? Image { get; set; }
-    public ICollection<Match> Matches { get; set; }
-    public ICollection<EmployerTag> EmployerTags { get; set; }
+    public ICollection<Match> Matches { get; set; } = new List<Match>();
+    public ICollection<EmployerTag> EmployerTags { get; set; } = new List<EmployerTag>();
 }
