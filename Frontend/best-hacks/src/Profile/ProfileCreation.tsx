@@ -14,6 +14,7 @@ export default function ProfileCreation() {
     const [summary, setSummary] = React.useState<string>("");
     const [allTags, setAllTags] = React.useState<Tag[]>([]); // Stan do przechowywania tagów
     const [tags, setTags] = React.useState<Tag[]>([]); // Wybrane tagi
+    const [selectedImageBase64, setSelectedImageBase64] = React.useState<string | null>(null);
 
     const fetchTags = async () => {
         try {
@@ -37,6 +38,7 @@ export default function ProfileCreation() {
                 setSummary(employeeData.experience);
                 setTags(employeeData.tags);
                 setId(employeeData.id);
+                setSelectedImage(employeeData.imageBase64);
             } catch (error) {
                 console.error("Failed to fetch employee data:", error);
             }
@@ -49,8 +51,12 @@ export default function ProfileCreation() {
     const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setSelectedImage(imageUrl);
+            const reader = new FileReader();
+            reader.readAsDataURL(file); // Odczyt pliku jako base64 string
+            reader.onloadend = () => {
+                const base64String = reader.result as string;
+                setSelectedImageBase64(base64String); // Ustawienie obrazu w formacie base64
+            };
         }
     };
 
@@ -89,11 +95,11 @@ export default function ProfileCreation() {
             <div>
                 <h2>Choose profile picture</h2>
                 <input type="file" accept="image/*" onChange={handleImageChange} />
-                {selectedImage && (
+                {selectedImageBase64 && (
                     <div style={{ marginTop: '20px' }}>
                         <h3>Picture preview:</h3>
                         <img
-                            src={selectedImage}
+                            src={selectedImageBase64}
                             alt="Podgląd zdjęcia profilowego"
                             style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%' }}
                         />
