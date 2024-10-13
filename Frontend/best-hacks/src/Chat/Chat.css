@@ -1,100 +1,96 @@
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ustawia wysokość kontenera na 100% widoku */
-    overflow-y: scroll; /* Dodaje przewijanie, gdy jest za dużo wiadomości */
-
+    height: 100vh;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
 .chat-messages {
-    flex: 1; /* Umożliwia zajmowanie całej dostępnej przestrzeni */
-    overflow-y: auto; /* Dodaje przewijanie, gdy jest za dużo wiadomości */
+    flex: 1;
     padding: 10px;
-    background-color: #f9f9f9; /* Tło czatu */
-    margin-bottom: 10px; /* Margines dolny dla czatu */
-    display: flex;
-    flex-direction: column; /* Ustawienie wiadomości w kolumnie */
-    justify-content: flex-end; /* Ustawienie wiadomości przy dole kontenera */
+    overflow-y: auto;
+    background-color: #f9f9f9;
 }
 
-/* Styl dla wiadomości */
 .chat-message {
-    margin: 5px 0;
-    padding: 10px;
+    margin: 25px 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-radius: 5px;
-    max-width: 70%; /* Umożliwia ograniczenie szerokości boxu */
-    display: flex;
-    align-items: center;
-    position: relative; /* Umożliwia pozycjonowanie elementów */
-    word-wrap: break-word; /* Zawijanie długich słów */
+    word-wrap: break-word; /* Zapobiega wychodzeniu tekstu poza box */
+    position: relative; /* Aby umieścić datę w odpowiednim miejscu */
 }
 
-/* Styl dla wiadomości wysłanych */
-.sent {
-    justify-content: flex-end; /* Wyrównanie do prawej */
-    background-color: #d9f9d9; /* Lekko zielony kolor dla wysłanych wiadomości */
-    align-self: flex-end; /* Przyklejenie do prawej strony */
-}
-
-/* Styl dla wiadomości odebranych */
-.received {
-    justify-content: flex-start; /* Wyrównanie do lewej */
-    background-color: #e0f7fa; /* Inny kolor dla odebranych wiadomości */
-    align-self: flex-start; /* Przyklejenie do lewej strony */
-}
-
-/* Awatar */
-.chat-avatar {
-    width: 30px; /* Mniejszy rozmiar */
-    height: 30px; /* Mniejszy rozmiar */
-    border-radius: 50%; /* Okrągły kształt */
-    margin-right: 5px; /* Odstęp dla wysłanych wiadomości */
-    object-fit: cover; /* Dopasowanie zdjęcia */
-}
-
-/* Stylizowanie kontentu wiadomości */
-.message-content {
-    display: flex;
-    flex-direction: column; /* Ustawienie w kolumnie */
-}
-
-/* Stylizacja daty */
-.message-date {
-    font-size: 0.8em;
-    color: gray;
+/* Wiadomości wysyłane przez użytkownika (przyklejone do prawej) */
+.chat-message.user {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+    margin-left: auto;
     text-align: right;
-    margin-top: 5px; /* Dodanie odstępu nad datą */
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 60%;
+    width: fit-content;
 }
 
-/* Styl pola do wpisywania wiadomości */
-.message-input {
+/* Wiadomości od pracodawcy (przyklejone do lewej) */
+.chat-message.employer {
+    background-color: #fff3cd;
+    align-self: flex-start;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    text-align: left; /* Tekst w wiadomości pracodawcy wyrównany do lewej */
+    padding: 5px;
+    max-width: 60%;
+}
+
+/* Styl dla daty wiadomości */
+.chat-message .message-date {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+    display: block;
+    position: absolute;
+    bottom: -18px; /* Odsunięcie daty od dolnej części dymku */
+    right: 10px; /* Dostosowanie dla wiadomości użytkownika */
+    white-space: nowrap; /* Zapobiega zawijaniu się tekstu */
+}
+
+/* Wyrównanie daty dla pracodawcy */
+.chat-message.employer .message-date {
+    right: auto;
+    left: 10px; /* Wyrównanie daty do lewej dla pracodawcy */
+}
+
+.chat-input-container {
     display: flex;
-    align-items: center;
     padding: 10px;
-    background-color: white; /* Tło dla pola wejściowego */
-    border-top: 1px solid #ccc; /* Górna granica */
+    background-color: #fff;
+    border-top: 1px solid #ddd;
 }
 
-/* Styl pola tekstowego */
-.input-field {
-    flex: 1; /* Umożliwia zajmowanie całej dostępnej przestrzeni */
+.chat-input-container input {
+    flex: 1;
     padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-right: 10px; /* Odstęp między polem a przyciskiem */
 }
 
-/* Styl przycisku wysyłania */
-.send-button {
-    padding: 10px 15px;
+.chat-input-container button {
+    margin-left: 10px;
+    padding: 10px;
     border: none;
+    background-color: #0d6efd;
+    color: white;
     border-radius: 5px;
-    background-color: #007bff; /* Kolor przycisku */
-    color: white; /* Kolor tekstu przycisku */
-    cursor: pointer; /* Zmiana kursora na wskaźnik */
+    cursor: pointer;
 }
 
-/* Efekt po najechaniu na przycisk */
-.send-button:hover {
-    background-color: #0056b3; /* Ciemniejszy kolor na hover */
+.chat-input-container button:hover {
+    background-color: #0b5ed7;
 }

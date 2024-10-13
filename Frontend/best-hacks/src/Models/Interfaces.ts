@@ -1,87 +1,76 @@
+// git
 export interface auth {
     isAuthSuccessful: boolean,
     errorMessage: string,
-    token: string
+    token: string,
+    role: string
 }
 
+// git
+// GET na /employees/me
+// taki sam /employees/next
+// taki sam PUT
 export interface Employee {
+    id: string;
     firstName: string;
     lastName: string;
     email: string;
     bio: string;
     location: string;
     experience: string;
-    userTags: UserTag[];
-}
-
-export interface Employer {
-    companyName: string;
-    contactName: string;
-    location: string;
-    createdAt: Date;
-    jobs: Job[];
-}
-
-export interface EmployeeProfileDto {
-    firstName?: string;
-    lastName?: string;
-    bio?: string;
-    location?: string;
-    experience?: string;
+    imageUrl: string;
     tags: Tag[];
-  }
-
-export interface Job {
-    id: string;
-    jobTitle: string;
-    jobDescription: string;
-    location: string;
-    experienceLevel: string;
-    createdAt: Date;
-    employerId: string;
-    employer: Employer;
-    jobTags: JobTag[];
-    matches: Match[];
 }
 
+// git
+// GET na /employers/me
+// taki sam na /employers/next
+// taki sam PUT
+export interface Employer {
+    id: string;
+    companyName: string;
+    email: string;
+    bio: string;
+    location: string;
+    imageUrl: string;
+    tags: Tag[];
+}
+
+// git
+// zawarte w employer i employee
+// GET /tags -> zwraaca wszystkie tagi
 export interface Tag {
     id: string;
     name: string;
-    userTags: UserTag[];
-    jobTags: JobTag[];
 }
 
-export interface UserTag {
-    userId: string;
-    user: Employee;
-    tagId: string;
-    tag: Tag;
-}
-
-export interface JobTag {
-    jobId: string;
-    job: Job;
-    tagId: string;
-    tag: Tag;
-}
-
+// git
+// GET na /matches -> zwraca dla mojego id
 export interface Match {
-    id: string;
-    matchScore: number;
     createdAt: Date;
-    userId: string;
-    employee: Employee;
-    jobId: string;
-    job: Job;
+    employee?: Employee;
+    employer?: Employer;
     conversations: Conversation[];
 }
 
+// git
+// zawarte w matchach, nie trzeba GET
 export interface Conversation {
     id: string;
     message: string;
     createdAt: Date;
+    authorId: string;
+}
+
+// POST na coś
+export interface SwipeInfo{
+    userId: string;
+    swipedId: string;
+    SwipeResult: boolean;
+}
+
+// POST na /conversations
+export interface AddConversation{
     matchId: string;
-    match: Match;
-    senderId: string;
-    //sender: User;
+    message: string;
 }

@@ -6,72 +6,29 @@ export default function Matches() {
 
     const matches: SingleMatchProps[] = [
         {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
+            name: 'Michał',
+            skills: ['JS,', 'TS,', 'Angular'],
             position: 'Frontend Dev Senior',
             id: 'sdasd'
         },
         {
             name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
+            skills: ['C++,', 'C'],
+            position: 'C++ Dev Senior',
             id: 'sdasd'
         },
         {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
+            name: 'Maria',
+            skills: ['Python,', 'Django,', 'Flask'],
+            position: 'Backend Dev Junior',
             id: 'sdasd'
         },
         {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
-            id: 'sdasd'
-        },
-        {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
-            id: 'sdasd'
-        },
-        {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
-            id: 'sdasd'
-        },
-        {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
-            id: 'sdasd'
-        },
-        {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
-            id: 'sdasd'
-        },
-        {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
-            id: 'sdasd'
-        },
-        {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
-            id: 'sdasd'
-        },
-        {
-            name: 'Jan',
-            skills: ['JS', 'TS', 'Angular'],
-            position: 'Frontend Dev Senior',
+            name: 'Franciszek',
+            skills: ['Talent Aquisition', 'HR'],
+            position: 'HR specialist regular',
             id: 'sdasd'
         }
-
     ]
 
     return (

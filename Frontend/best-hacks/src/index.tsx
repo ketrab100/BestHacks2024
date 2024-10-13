@@ -12,11 +12,12 @@ import { Provider } from 'react-redux';
 import { store } from './store'
 import 'bootstrap/dist/css/bootstrap.css';
 import Register from './Auth/Register';
-//import Chat from './Chat/Chat';
 import SwipeScreen from './Swipe/SwipeScreen'
 import 'bootstrap/dist/css/bootstrap.css';
 import TopBar from './Utils/TopBar';
 import Matches from './Chat/Matches';
+import ProfileCreation from './Profile/ProfileCreation';
+import Chat from './Chat/Chat';
 
 
 const router = createBrowserRouter([
@@ -30,20 +31,24 @@ const router = createBrowserRouter([
   },
   {
     path: "/swipe",
-    element: <SwipeScreen/>
+    element: <SwipeScreen />
   },
   {
     path: "/register",
     element: <Register />
   },
-  // {
-  //   path: "/chat/:matchId", // Nowa trasa dla czatu
-  //   element: <Chat />, // Usuń matchId z props
-  // },
+  {
+    path: "/chat/:matchId", // Nowa trasa dla czatu
+    element: <Chat />, // Usuń matchId z props
+  },
   {
     path: "/chat",
     element: <Matches />
   },
+  {
+    path: "/profile",
+    element: <ProfileCreation />
+  }
 ]);
 
 const root = ReactDOM.createRoot(

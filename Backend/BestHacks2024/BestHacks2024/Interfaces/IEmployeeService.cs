@@ -7,7 +7,7 @@ public interface IEmployeeService
 {
     public Task<IEnumerable<Employee>> GetEmployeesAsync();
     public Task<Employee?> GetEmployeeByIdAsync(Guid id);
-    public Task<Employee?> GetNextEmployeeAsync();
+    public Task<List<Employee>> GetNextEmployeesAsync(Guid id, CancellationToken cancellationToken);
     
     public Task<Employee?> CreateEmployeeAsync(EmployeeDto employee);
     public Task<Employee?> UpdateEmployeeAsync(Guid id, EmployeeDto employee);

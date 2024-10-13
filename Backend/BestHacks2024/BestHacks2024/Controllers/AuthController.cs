@@ -1,5 +1,6 @@
 ﻿using BestHacks2024.Database.Entities;
 using BestHacks2024.Dtos;
+using BestHacks2024.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,11 +16,13 @@ namespace BestHacks2024.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly IEmployeeService _employeeService;
 
-        public AuthController(UserManager<User> userManager, IConfiguration configuration)
+        public AuthController(UserManager<User> userManager, IConfiguration configuration, IEmployeeService employeeService)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _employeeService = employeeService;
         }
 
         [HttpPost("register")]
@@ -71,8 +74,10 @@ namespace BestHacks2024.Controllers
                 Audience = _configuration["Jwt:Audience"],
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            var employee = _employeeService.GetEmployeeByIdAsync(user.Id);
+            var role = employee == null ? "Employer" : "Employee";
 
-            return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
+            return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = new JwtSecurityTokenHandler().WriteToken(token), Role = role });
         }
 
         [HttpGet("users")]

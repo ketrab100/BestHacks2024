@@ -33,7 +33,7 @@ function Register() {
       setPassword('');
       setEmail('');
       setNickname('');
-      setIsEmployer(false); // Reset checkboxa
+      setIsEmployer(isEmployer); // Reset checkboxa
     } catch (error) {
       setStatusMessage('Rejestracja nie powiodła się. Spróbuj ponownie.');
     }
@@ -81,7 +81,7 @@ function Register() {
             checked={isEmployer}
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="isEmployer" className="ms-2">Jestem firmą</label>
+          <label htmlFor="isEmployer" className="ms-2">Jestem kandydatem szukającym pracy</label>
         </div>
 
         <div className="d-grid gap-2">

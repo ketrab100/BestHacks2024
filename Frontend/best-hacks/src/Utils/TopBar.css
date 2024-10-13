@@ -15,6 +15,10 @@
     font-weight: bold;
 }
 
+.blueText {
+    color: #2ca9bc
+}
+
 /* Kontener dla przycisków menu po prawej stronie */
 .menu-items {
     display: flex;
