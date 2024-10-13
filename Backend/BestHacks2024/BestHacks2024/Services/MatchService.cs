@@ -40,7 +40,7 @@ public class MatchService : IMatchService
             .Include(x => x.Employer).ThenInclude(x => x.EmployerTags).ThenInclude(x => x.Tag)
             .Include(x => x.Conversations)
             .AsNoTracking()
-            .Where(x => x.Employee.Id == employeeId && x.AreMatched == true)
+            .Where(x => x.Employee.Id == employeeId && x.DidEmployerAcceptCandidate == true)
             .ToListAsync();
     }
 
