@@ -135,17 +135,33 @@ namespace BestHacks2024
                 using (var mockScope = app.Services.CreateScope())
                 {
                     var dbContext = mockScope.ServiceProvider.GetRequiredService<BestHacksDbContext>();
-
+                    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                     if (!dbContext.Employees.Any() && !dbContext.Employers.Any() && !dbContext.Matches.Any())
                     {
                         var employees = StaticMockDataGenerator.GenerateEmployees(10);
                         var employers = StaticMockDataGenerator.GenerateEmployers(10);
                         var matches = StaticMockDataGenerator.GenerateMatches(employees, employers);
+                        
+                        foreach (var employee in employees)
+                        {
+                            var password = "Employee123!"; 
+                            var result = userManager.CreateAsync(employee, password).Result;
+                            if (!result.Succeeded)
+                            {
+                                throw new Exception($"Failed to create employee user: {result.Errors.FirstOrDefault()?.Description}");
+                            }
+                        }
 
-                        dbContext.Employees.AddRange(employees);
-                        dbContext.Employers.AddRange(employers);
+                        foreach (var employer in employers)
+                        {
+                            var password = "Employer123!"; 
+                            var result = userManager.CreateAsync(employer, password).Result;
+                            if (!result.Succeeded)
+                            {
+                                throw new Exception($"Failed to create employer user: {result.Errors.FirstOrDefault()?.Description}");
+                            }
+                        }
                         dbContext.Matches.AddRange(matches);
-
                         dbContext.SaveChanges();
                     }
                 }

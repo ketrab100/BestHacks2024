@@ -25,7 +25,9 @@ public class StaticMockDataGenerator
                     new UserTag { TagId = Guid.NewGuid(), Tag = new Tag { Id = Guid.NewGuid(), Name = "Azure" }},
                     new UserTag { TagId = Guid.NewGuid(), Tag = new Tag { Id = Guid.NewGuid(), Name = "C#" }},
                     new UserTag { TagId = Guid.NewGuid(), Tag = new Tag { Id = Guid.NewGuid(), Name = "SQL" }}
-                }
+                },
+                Email = $"employee{i}@example.com",
+                UserName = $"employee{i}@example.com"
             });
         }
         return employees;
@@ -53,7 +55,9 @@ public class StaticMockDataGenerator
                     new EmployerTag { TagId = Guid.NewGuid(), Tag = new Tag { Id = Guid.NewGuid(), Name = "ASP.NET" }},
                     new EmployerTag { TagId = Guid.NewGuid(), Tag = new Tag { Id = Guid.NewGuid(), Name = "Azure" }},
                     new EmployerTag { TagId = Guid.NewGuid(), Tag = new Tag { Id = Guid.NewGuid(), Name = "C#" }},
-                }
+                },
+                Email = $"employer{i}@example.com",
+                UserName = $"employer{i}@example.com"
             });
         }
         return employers;
