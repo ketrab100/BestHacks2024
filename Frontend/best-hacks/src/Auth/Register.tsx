@@ -42,7 +42,7 @@ function Register() {
   return (
     <div className="register-container">
       <div className="register-card">
-        <h3 className="register-title">Zarejestruj się aby korzystać z LinkedER</h3>
+        <h3 className="register-title">Zarejestruj się</h3>
 
         <div className="mb-3">
           <input

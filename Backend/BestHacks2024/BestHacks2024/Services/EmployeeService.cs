@@ -6,6 +6,7 @@ using BestHacks2024.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using RestSharp;
+using BestHacks2024.Mappings;
 
 namespace BestHacks2024.Services;
 
@@ -31,11 +32,13 @@ public class EmployeeService : IEmployeeService
     {
         return await _context
             .Employees
+            .Include(x => x.UserTags)
+            .ThenInclude(y => y.Tag)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<List<Employee>> GetNextEmployeesAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<List<EmployeeDto>> GetNextEmployeesAsync(Guid id, CancellationToken cancellationToken)
     {
         var aiJobs = new List<EmployerAiDto>();
         try
@@ -51,17 +54,22 @@ public class EmployeeService : IEmployeeService
         }
         catch{}
 
-        var employer = await _context.Employers.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        var employer = await _context.Employers
+            .Include(x => x.EmployerTags)
+            .ThenInclude(x => x.Tag)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         var employerTags = employer.EmployerTags.Select(x => x.TagId);
         var employees = await _context.Employees.Where(x => aiJobs.Select(y => y.Id).Contains(x.Id)).ToListAsync(cancellationToken);
 
         var restOfEmployees = await _context.Employees
-            .Where(x=> x.Matches.Any(y=>y.JobId!=employer.Id))
+            .Include(x => x.UserTags)
+            .ThenInclude(x => x.Tag)
+            //.Where(x=> x.Matches.Any(y=>y.JobId!=employer.Id)) jak nikt nie ma matchy to wypierdala goœcia
             .Where(x => x.UserTags.Any(y => employerTags.Contains(y.TagId)))
             .OrderBy(x=>x.Id).Take(10-aiJobs.Count).ToListAsync(cancellationToken);
         
         employees = employees.Concat(restOfEmployees).ToList();
-        return employees;
+        return employees.Select(Mappers.MapToEmployeeDto).ToList(); // tu powinno byæ dto !!
     }
 
     public async Task<Employee?> CreateEmployeeAsync(EmployeeDto employeeDto)
@@ -97,7 +105,7 @@ public class EmployeeService : IEmployeeService
         return employee;
     }
 
-    public async Task<Employee?> UpdateEmployeeAsync(Guid id, EmployeeDto employeeDto)
+    public async Task<EmployeeDto> UpdateEmployeeAsync(Guid id, EmployeeDto employeeDto)
     {
         var employee = await _context.Employees
             .Include(e => e.UserTags)
@@ -105,12 +113,19 @@ public class EmployeeService : IEmployeeService
 
         if (employee == null)
             throw new KeyNotFoundException("Employee not found");
-        
+
+        employee.FirstName = employeeDto.FirstName;
+        employee.LastName = employeeDto.LastName;
+        employee.Bio = employeeDto.Bio;
+        employee.Location = employeeDto.Location;
+        employee.ExperienceLevel = employeeDto.Experience;
+        //employee.Image = employeeDto.ImageBase64;
+
         var userTags = employeeDto.Tags.Select(x => new UserTag { TagId = x.Id, UserId = employee.Id});
         employee.UserTags = userTags.ToList();
         
         await _context.SaveChangesAsync();
-        return employee;
+        return employeeDto;
     }
     public async Task DeleteEmployeeAsync(Guid id)
     {

@@ -48,7 +48,7 @@ function SwipeScreen() {
              onTouchEnd={handleTouchEnd}
              style={{backgroundColor: bgColor}}>
             <section className="snap-section first-section">
-                <div className="profile-pic" style={{backgroundImage: `url(${employee.imageUrl})`}}/>
+                <div className="profile-pic" style={{backgroundImage: `url(${employee.imageBase64})`}}/>
                 <span className="credentials"><span
                     className="name">{employee.firstName}</span> {employee.lastName}</span>
                 <div className="summary">

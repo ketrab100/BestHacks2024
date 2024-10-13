@@ -18,7 +18,7 @@ export interface Employee {
     bio: string;
     location: string;
     experience: string;
-    imageUrl: string;
+    imageBase64: string;
     tags: Tag[];
 }
 

@@ -74,7 +74,7 @@ namespace BestHacks2024.Controllers
                 Audience = _configuration["Jwt:Audience"],
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            var employee = _employeeService.GetEmployeeByIdAsync(user.Id);
+            var employee = await _employeeService.GetEmployeeByIdAsync(user.Id);
             var role = employee == null ? "Employer" : "Employee";
 
             return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = new JwtSecurityTokenHandler().WriteToken(token), Role = role });

@@ -8,7 +8,7 @@ export async function getMyData() : Promise<Match[]> {
         if (!token) {
             throw new Error("No token found, please log in.");
         }
-        const response = await axios.post<Match[]>("http://localhost:2137/api/matches",
+        const response = await axios.post<Match[]>("http://localhost:2137/api/matches/me",
         {
             headers: {
                 'Authorization': `Bearer ${token}` // Dodaj token do nagłówka

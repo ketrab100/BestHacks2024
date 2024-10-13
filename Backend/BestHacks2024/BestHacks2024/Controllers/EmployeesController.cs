@@ -1,10 +1,7 @@
 using AutoMapper;
-using BestHacks2024.Database.Entities;
 using BestHacks2024.Dtos;
 using BestHacks2024.Interfaces;
-using BestHacks2024.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -13,25 +10,13 @@ namespace BestHacks2024.Controllers;
 [ApiController]
 [Authorize(AuthenticationSchemes = "Bearer")]
 [Route("api/[controller]")]
-public class EmployeeController : ControllerBase
+public class EmployeesController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
-    //private readonly UserManager<User> _userManager;
-    private readonly IMapper _mapper;
 
-    public EmployeeController(IEmployeeService employeeService, IMapper mapper)
+    public EmployeesController(IEmployeeService employeeService)
     {
         _employeeService = employeeService;
-        _mapper = mapper;
-    }
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetEmployeeAsync(Guid id)
-    {
-        var employee = await _employeeService.GetEmployeeByIdAsync(id);
-        
-        if(employee is null) return NotFound();
-        return Ok(employee);
     }
 
     [HttpGet("me")]
@@ -62,30 +47,7 @@ public class EmployeeController : ControllerBase
             Tags = tags
         };
         
-        return Ok(employee);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetEmployeesAsync()
-    {
-        return Ok(await _employeeService.GetEmployeesAsync());
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> AddEmployeeAsync([FromBody] EmployeeDto dto)
-    {
-        var employee = await _employeeService.CreateEmployeeAsync(dto);
-        if(employee is null) return BadRequest();
-        return Ok(employee);
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateEmployeeAsync(Guid id, [FromBody] EmployeeDto dto)
-    {
-        var updatedEmployee = await _employeeService.UpdateEmployeeAsync(id, dto);
-        if (updatedEmployee == null) return NotFound();
-    
-        return Ok(updatedEmployee);
+        return Ok(employeeDto);
     }
 
     [HttpPut("me")]
@@ -98,20 +60,6 @@ public class EmployeeController : ControllerBase
 
         return Ok(updatedEmployee);
     }
-
-    [HttpDelete]
-    public async Task<IActionResult> DeleteEmployeeAsync(Guid id)
-    {
-        try
-        {
-            await _employeeService.DeleteEmployeeAsync(id);
-            return Ok();
-        }
-        catch
-        {
-            return BadRequest();
-        }
-    }
     
     [HttpGet("next")]
     public async Task<IActionResult> GetNextAsync(CancellationToken cancellationToken)
@@ -122,12 +70,50 @@ public class EmployeeController : ControllerBase
         
         return Ok(employers);
     }
-    
-    private TagDto MapToTagDto(Tag tag)
+
+    //[HttpGet("{id}")]
+    //public async Task<IActionResult> GetEmployeeAsync(Guid id)
+    //{
+    //    var employee = await _employeeService.GetEmployeeByIdAsync(id);
+
+    //    if(employee is null) return NotFound();
+    //    return Ok(employee);
+    //}
+
+    [HttpGet]
+    public async Task<IActionResult> GetEmployeesAsync()
     {
-        return new TagDto
-        {
-            Name = tag.Name,
-        };
+        return Ok(await _employeeService.GetEmployeesAsync());
     }
+
+    //[HttpPost]
+    //public async Task<IActionResult> AddEmployeeAsync([FromBody] EmployeeDto dto)
+    //{
+    //    var employee = await _employeeService.CreateEmployeeAsync(dto);
+    //    if(employee is null) return BadRequest();
+    //    return Ok(employee);
+    //}
+
+    //[HttpPut("{id}")]
+    //public async Task<IActionResult> UpdateEmployeeAsync(Guid id, [FromBody] EmployeeDto dto)
+    //{
+    //    var updatedEmployee = await _employeeService.UpdateEmployeeAsync(id, dto);
+    //    if (updatedEmployee == null) return NotFound();
+
+    //    return Ok(updatedEmployee);
+    //}
+
+    //[HttpDelete]
+    //public async Task<IActionResult> DeleteEmployeeAsync(Guid id)
+    //{
+    //    try
+    //    {
+    //        await _employeeService.DeleteEmployeeAsync(id);
+    //        return Ok();
+    //    }
+    //    catch
+    //    {
+    //        return BadRequest();
+    //    }
+    //}
 }

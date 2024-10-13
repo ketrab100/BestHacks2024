@@ -4,6 +4,7 @@ namespace BestHacks2024.Interfaces;
 
 public class MatchDto
 {
+    public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public EmployeeDto? Employee { get; set; }
     public EmployerDto? Employer { get; set; }

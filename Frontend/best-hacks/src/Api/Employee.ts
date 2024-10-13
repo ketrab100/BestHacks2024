@@ -8,7 +8,7 @@ export async function getMyData(): Promise<Employee> {
         if (!token) {
             throw new Error("No token found, please log in.");
         }
-        const response = await axios.post("http://localhost:2137/api/employees/me",
+        const response = await axios.get("http://localhost:2137/api/employees/me",
             {
                 headers: {
                     'Authorization': `Bearer ${token}` // Dodaj token do nagłówka
@@ -50,7 +50,8 @@ export async function updateEmployee(employee: Employee) {
         if (!token) {
             throw new Error("No token found, please log in.");
         }
-        const response = await axios.put("http://localhost:2137/api/employees", employee,
+        const response = await axios.put("http://localhost:2137/api/employees/me", employee,
+            
             {
                 headers: {
                     'Authorization': `Bearer ${token}` // Dodaj token do nagłówka

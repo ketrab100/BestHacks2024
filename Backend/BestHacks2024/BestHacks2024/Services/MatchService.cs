@@ -36,8 +36,11 @@ public class MatchService : IMatchService
     {
         return await _context
             .Matches
+            .Include(x => x.Employee).ThenInclude(x => x.UserTags).ThenInclude(x => x.Tag)
+            .Include(x => x.Employer).ThenInclude(x => x.EmployerTags).ThenInclude(x => x.Tag)
+            .Include(x => x.Conversations)
             .AsNoTracking()
-            .Where(x => x.Employee.Id == employeeId)
+            .Where(x => x.Employee.Id == employeeId && x.AreMatched == true)
             .ToListAsync();
     }
 
@@ -45,8 +48,10 @@ public class MatchService : IMatchService
     {
         return await _context
             .Matches
+            .Include(x => x.Employee).ThenInclude(x => x.UserTags).ThenInclude(x => x.Tag)
+            .Include(x => x.Employer).ThenInclude(x => x.EmployerTags).ThenInclude(x => x.Tag)
             .AsNoTracking()
-            .Where(x => x.Employer.Id == employerId)
+            .Where(x => x.Employer.Id == employerId && x.AreMatched == true)
             .ToListAsync();
     }
 
@@ -54,6 +59,7 @@ public class MatchService : IMatchService
     {
         Employee? employee;
         Employer? employer;
+        bool isEmployee = false;
         
         employee = await _context.Employees.FirstOrDefaultAsync(x=> x.Id == userId);
         if (employee == null)
@@ -63,6 +69,7 @@ public class MatchService : IMatchService
         }
         else
         {
+            isEmployee = true;
             employer = await _context.Employers.FirstOrDefaultAsync(x => x.Id == swipeDto.SwipedId) ?? throw new NullReferenceException("Could not find employer");
         }
 
@@ -78,20 +85,21 @@ public class MatchService : IMatchService
 
             match.DidEmployerAcceptCandidate = swipeDto.SwipedId == employee.Id && swipeDto.SwipeResult;
             match.DidEmployeeAcceptJobOffer = swipeDto.SwipedId == employer.Id && swipeDto.SwipeResult;
+
+            _context.Matches.Add(match);
         }
         else
         {
-            if (match.DidEmployerAcceptCandidate is null) match.DidEmployerAcceptCandidate = swipeDto.SwipeResult;
-            else if (match.DidEmployeeAcceptJobOffer is null) match.DidEmployeeAcceptJobOffer = swipeDto.SwipeResult;
+            if (!isEmployee) 
+                match.DidEmployerAcceptCandidate = swipeDto.SwipeResult;
+            else  
+                match.DidEmployeeAcceptJobOffer = swipeDto.SwipeResult;
         }
 
         if (match.DidEmployerAcceptCandidate is not null && match.DidEmployeeAcceptJobOffer is not null)
             match.AreMatched = match.DidEmployerAcceptCandidate.Value && match.DidEmployeeAcceptJobOffer.Value;
         else
-        {
             match.AreMatched = false;
-        }
-        _context.Matches.Add(match);
         await _context.SaveChangesAsync();
 
         return match;
@@ -155,5 +163,18 @@ public class MatchService : IMatchService
 
         _context.Matches.Remove(match);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<AddConversationDto> CreateConversationAsync(Guid userId, AddConversationDto conversationDto)
+    {
+        var newConversation = new Conversation();
+        newConversation.SenderId = userId;
+        newConversation.Message = conversationDto.Message;
+        newConversation.MatchId = conversationDto.MatchId;
+
+        _context.Conversations.Add(newConversation);
+        await _context.SaveChangesAsync();
+
+        return conversationDto;
     }
 }

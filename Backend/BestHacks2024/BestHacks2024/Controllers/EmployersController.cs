@@ -10,26 +10,17 @@ namespace BestHacks2024.Controllers;
 [ApiController]
 [Authorize(AuthenticationSchemes = "Bearer")]
 [Route("api/[controller]")]
-public class EmployerController : ControllerBase
+public class EmployersController : ControllerBase
 {
     private readonly IEmployerService _employerService;
     private readonly IMapper _mapper;
 
-    public EmployerController(IEmployerService employerService, IMapper mapper)
+    public EmployersController(IEmployerService employerService, IMapper mapper)
     {
         _employerService = employerService;
         _mapper = mapper;
     }
-
-    [HttpGet("job/{id}")]
-    public async Task<IActionResult> GetJobAsync(CancellationToken cancellationToken)
-    {
-        var identity = HttpContext.User.Identity as ClaimsIdentity;
-        var id = Guid.Parse(identity.FindFirst("id").Value ?? throw new ArgumentException("Employee not found"));
-        var jobs = await _employerService.GetNextEmployers(id, cancellationToken);
-
-        return Ok(jobs);
-    }
+    
     [HttpGet("next")]
     public async Task<IActionResult> GetNextAsync(CancellationToken cancellationToken)
     {
@@ -38,21 +29,6 @@ public class EmployerController : ControllerBase
         var employers  = await _employerService.GetNextEmployers(id, cancellationToken);
         
         return Ok(employers);
-    }
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var employer = await _employerService.GetEmployerByIdAsync(id);
-        
-        if(employer is null) return NotFound();
-        return Ok(employer);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
-    {
-        return Ok(await _employerService.GetEmployersAsync());
     }
 
     [HttpGet("me")]
@@ -94,6 +70,31 @@ public class EmployerController : ControllerBase
         var updatedEmployee = await _employerService.UpdateEmployerAsync(id, dto);
         if (updatedEmployee == null) return NotFound();
 
-        return Ok(updatedEmployee);
+        return Ok(dto); // trzeba zwracaæ dto!
     }
+
+    //[HttpGet("job/{id}")]
+    //public async Task<IActionResult> GetJobAsync(CancellationToken cancellationToken)
+    //{
+    //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+    //    var id = Guid.Parse(identity.FindFirst("id").Value ?? throw new ArgumentException("Employee not found"));
+    //    var jobs = await _employerService.GetNextEmployers(id, cancellationToken);
+
+    //    return Ok(jobs);
+    //}
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        return Ok(await _employerService.GetEmployersAsync());
+    }
+
+    //[HttpGet("{id}")]
+    //public async Task<IActionResult> GetAsync(Guid id, CancellationToken cancellationToken)
+    //{
+    //    var employer = await _employerService.GetEmployerByIdAsync(id);
+
+    //    if (employer is null) return NotFound();
+    //    return Ok(employer);
+    //}
 }

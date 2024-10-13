@@ -2,6 +2,7 @@ using BestHacks2024.Database;
 using BestHacks2024.Database.Entities;
 using BestHacks2024.Dtos;
 using BestHacks2024.Interfaces;
+using BestHacks2024.Mappings;
 using BestHacks2024.Migrations;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
@@ -33,7 +34,7 @@ public class EmployerService : IEmployerService
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public async Task<List<Employer>> GetNextEmployers(Guid id, CancellationToken cancellationToken)
+    public async Task<List<EmployerDto>> GetNextEmployers(Guid id, CancellationToken cancellationToken)
     {
         var aiJobs = new List<EmployerAiDto>();
         try
@@ -49,17 +50,22 @@ public class EmployerService : IEmployerService
         }
         catch{}
 
-        var user = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        var user = await _context.Employees
+            .Include(x => x.UserTags)
+            .ThenInclude(x => x.Tag)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         var userTagIds = user.UserTags.Select(x => x.TagId);
         var employers = await _context.Employers.Where(x => aiJobs.Select(y => y.Id).Contains(x.Id)).ToListAsync(cancellationToken);
 
         var restOfJobs = await _context.Employers
-            .Where(x=> x.Matches.Any(y=>y.UserId!=user.Id))
+            .Include(x => x.EmployerTags)
+            .ThenInclude(x => x.Tag)
+            //.Where(x=> x.Matches.Any(y=>y.UserId!=user.Id)) to wywala 
             .Where(x => x.EmployerTags.Any(y => userTagIds.Contains(y.TagId)))
             .OrderBy(x=>x.Id).Take(10-aiJobs.Count).ToListAsync(cancellationToken);
         
         employers = employers.Concat(restOfJobs).ToList();
-        return employers;
+        return employers.Select(Mappers.MapToEmployerDto).ToList();
     }
 
     public async Task<Employer> CreateEmployerAsync(EmployerDto employerDto)
@@ -104,7 +110,13 @@ public class EmployerService : IEmployerService
 
         if (employer == null)
             throw new KeyNotFoundException("Employee not found");
-        
+
+        employer.CompanyName = employerDto.CompanyName;
+        employer.Location = employerDto.Location;
+        employer.JobTitle = employerDto.JobTitle;
+        employer.JobDescription = employerDto.JobDescription;
+        employer.ExperienceLevel = employerDto.ExperienceLevel;
+
         var employerTags = employerDto.Tags.Select(x => new EmployerTag { TagId = x.Id, EmployerId = employer.Id});
         employer.EmployerTags = employerTags.ToList();
         

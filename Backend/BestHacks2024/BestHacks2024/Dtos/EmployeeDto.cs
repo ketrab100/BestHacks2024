@@ -11,6 +11,4 @@ public class EmployeeDto
     public string Email { get; set;}
     public string ImageBase64 { get; set; }
     public ICollection<TagDto> Tags { get; set; }
-    
-    
 }

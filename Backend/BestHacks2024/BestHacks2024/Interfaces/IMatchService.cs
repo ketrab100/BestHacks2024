@@ -11,6 +11,7 @@ public interface IMatchService
     public Task<ICollection<Match>> GetEmployerMatchesAsync(Guid employerId);
     
     public Task<Match?> CreateMatchAsync(Guid userId, SwipeDto swipeDto);
+    public Task<AddConversationDto> CreateConversationAsync(Guid userId, AddConversationDto conversationDto);
     public Task<Match?> UpdateMatchAsync(Guid userId, SwipeDto swipeDto);
     public Task DeleteMatchAsync(Guid matchId);
 }

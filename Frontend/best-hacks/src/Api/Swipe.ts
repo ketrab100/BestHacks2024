@@ -7,7 +7,7 @@ export async function AddSwipeInfo(swipeInfo : SwipeInfo) {
         if (!token) {
             throw new Error("No token found, please log in.");
         }
-        await axios.post("http://localhost:2137/api/swipes", swipeInfo,
+        await axios.post("http://localhost:2137/api/matches/create", swipeInfo,
         {
             headers: {
                 'Authorization': `Bearer ${token}` // Dodaj token do nagłówka
