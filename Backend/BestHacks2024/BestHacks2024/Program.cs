@@ -138,10 +138,10 @@ namespace BestHacks2024
                     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                     if (!dbContext.Employees.Any() && !dbContext.Employers.Any() && !dbContext.Matches.Any())
                     {
-                        var employees = StaticMockDataGenerator.GenerateEmployees(10);
-                        var employers = StaticMockDataGenerator.GenerateEmployers(10);
-                        var matches = StaticMockDataGenerator.GenerateMatches(employees, employers);
-                        
+                        var tags = StaticMockDataGenerator.GenerateTags(15); // Generate 15 unique tags
+                        var employees = StaticMockDataGenerator.GenerateEmployees(10, tags);
+                        var employers = StaticMockDataGenerator.GenerateEmployers(10, tags);
+
                         foreach (var employee in employees)
                         {
                             var password = "Employee123!"; 
@@ -161,7 +161,9 @@ namespace BestHacks2024
                                 throw new Exception($"Failed to create employer user: {result.Errors.FirstOrDefault()?.Description}");
                             }
                         }
-                        dbContext.Matches.AddRange(matches);
+                        //
+                        //var matches = StaticMockDataGenerator.GenerateMatches(employees, employers);
+                        //dbContext.Matches.AddRange(matches);
                         dbContext.SaveChanges();
                     }
                 }
