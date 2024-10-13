@@ -6,12 +6,21 @@ import {store} from "../store";
 import {getNext, updateEmployees} from "../Reducers/EmployeeReducer";
 import {employeesMock} from "./EmployeesMock";
 import {getNextEmployee} from "../Api/Employee";
+import {AddSwipeInfo} from "../Api/Swipe";
 
 store.dispatch(getNext());
 
 getNextEmployee().then((res) => {
     store.dispatch(updateEmployees(res))
 })
+
+const addSwipe = async (result: boolean, swipedId: string) => {
+    try {
+        const tagsFromApi = await AddSwipeInfo({userId: "", swipedId: swipedId, SwipeResult: result}); // Pobierz tagi
+    } catch (error) {
+        console.error("Error fetching tags:", error); // Obsługa błędu
+    }
+};
 
 function SwipeScreen() {
     const [bgColor, setBgColor] = React.useState("#f0f8ff");
@@ -38,11 +47,13 @@ function SwipeScreen() {
             // Przesunięcie w lewo
             setBgColor("#faebd7"); // Zmieniamy kolor na inny
             // Otherwise, just go to the next employee
+            await addSwipe(false, store.getState().employeeReducer.employees[store.getState().employeeReducer.index].id)
             store.dispatch(getNext());
 
         } else if (touchStartX.current < touchEndX.current - 50) {
             // Przesunięcie w prawo
             setBgColor("#add8e6"); // Zmieniamy kolor na jeszcze inny
+            await addSwipe(true, store.getState().employeeReducer.employees[store.getState().employeeReducer.index].id)
             store.dispatch(getNext());
         }
         if (!store.getState().employeeReducer.employees[store.getState().employeeReducer.index]) {
