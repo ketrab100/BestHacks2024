@@ -14,32 +14,22 @@ export default function ProfileCreation() {
         {
             id: "1",
             name: "Java",
-            userTags: [],
-            jobTags: []
         },
         {
             id: "2",
             name: "JavaScript",
-            userTags: [],
-            jobTags: []
         },
         {
             id: "3",
             name: "Junior",
-            userTags: [],
-            jobTags: []
         },
         {
             id: "4",
             name: "Regular",
-            userTags: [],
-            jobTags: []
         },
         {
             id: "5",
             name: "Senior",
-            userTags: [],
-            jobTags: []
         },
     ]
 

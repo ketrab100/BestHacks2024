@@ -59,7 +59,7 @@ export interface Conversation {
     id: string;
     message: string;
     createdAt: Date;
-    AuthorId: string;
+    authorId: string;
 }
 
 // POST na coś
