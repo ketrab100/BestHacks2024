@@ -17,7 +17,7 @@ namespace BestHacks2024.Mappings
                 JobTitle = employer.JobTitle,
                 JobDescription = employer.JobDescription,
                 ExperienceLevel = employer.ExperienceLevel,
-                //ImageBase64 = employer.ImageUrl, // Assuming ImageUrl contains Base64 string, adjust if needed
+                ImageBase64 = Convert.ToBase64String(employer.Image ?? new byte[0]),
                 Tags = employer.EmployerTags.Select(x => x.Tag).Select(MapToTagDto).ToList() // Mapping tags using the helper method
             };
         }
@@ -55,8 +55,8 @@ namespace BestHacks2024.Mappings
                 Bio = employee.Bio,
                 Location = employee.Location,
                 Experience = employee.ExperienceLevel,
-                Email = employee.Email,
-                //ImageBase64 = employee.ImageUrl, // Assuming ImageUrl contains Base64 string, adjust if needed
+                Email = employee.Email ?? string.Empty,
+                ImageBase64 = Convert.ToBase64String(employee.Image ?? new byte[0]),
                 Tags = employee.UserTags.Select(x => x.Tag).Select(MapToTagDto).ToList() // Mapping tags using the helper method
             };
         }
