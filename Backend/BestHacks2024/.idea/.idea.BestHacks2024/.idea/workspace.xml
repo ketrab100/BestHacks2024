@@ -9,7 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="" />
+    <list default="true" id="fa89e7f9-1014-43fb-8447-444472c2760f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BestHacks2024/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BestHacks2024/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BestHacks2024/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/best-hacks/src/Api/Employee.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/best-hacks/src/Api/Employee.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/best-hacks/src/Reducers/EmployeeReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/best-hacks/src/Reducers/EmployeeReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/best-hacks/src/Swipe/SwipeScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/best-hacks/src/Swipe/SwipeScreen.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,6 +99,7 @@
       <workItem from="1728743795850" duration="2935000" />
       <workItem from="1728747357900" duration="8630000" />
       <workItem from="1728762987333" duration="5828000" />
+      <workItem from="1728797393030" duration="2239000" />
     </task>
     <servers />
   </component>
@@ -99,7 +109,25 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
-    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs</url>
+          <line>60</line>
+          <properties documentPath="$PROJECT_DIR$/BestHacks2024/Services/EmployeeService.cs" containingFunctionPresentation="Method 'GetNextEmployeesAsync'">
+            <startOffsets>
+              <option value="1881" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1943" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
