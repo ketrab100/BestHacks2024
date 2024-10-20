@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="besthacks@localhost">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
+    <root id="1">
+      <ServerVersion>17.0</ServerVersion>
+      <StartupTime>1728763156</StartupTime>
+    </root>
+    <database id="2" parent="1" name="besthacks">
+      <Current>1</Current>
+      <ObjectId>16384</ObjectId>
+      <OwnerName>besthacks</OwnerName>
+    </database>
+    <database id="3" parent="1" name="postgres">
+      <Comment>default administrative connection database</Comment>
+      <ObjectId>5</ObjectId>
+      <OwnerName>besthacks</OwnerName>
+    </database>
+    <schema id="4" parent="2" name="information_schema">
+      <ObjectId>13219</ObjectId>
+      <StateNumber>538</StateNumber>
+      <OwnerName>besthacks</OwnerName>
+    </schema>
+    <schema id="5" parent="2" name="pg_catalog">
+      <Comment>system catalog schema</Comment>
+      <ObjectId>11</ObjectId>
+      <StateNumber>532</StateNumber>
+      <OwnerName>besthacks</OwnerName>
+    </schema>
+    <schema id="6" parent="2" name="public">
+      <Comment>standard public schema</Comment>
+      <Current>1</Current>
+      <ObjectId>2200</ObjectId>
+      <StateNumber>532</StateNumber>
+      <OwnerName>pg_database_owner</OwnerName>
+    </schema>
+    <schema id="7" parent="3" name="information_schema">
+      <ObjectId>13219</ObjectId>
+      <StateNumber>538</StateNumber>
+      <OwnerName>besthacks</OwnerName>
+    </schema>
+    <schema id="8" parent="3" name="pg_catalog">
+      <Comment>system catalog schema</Comment>
+      <ObjectId>11</ObjectId>
+      <StateNumber>532</StateNumber>
+      <OwnerName>besthacks</OwnerName>
+    </schema>
+    <schema id="9" parent="3" name="public">
+      <Comment>standard public schema</Comment>
+      <Current>1</Current>
+      <ObjectId>2200</ObjectId>
+      <StateNumber>532</StateNumber>
+      <OwnerName>pg_database_owner</OwnerName>
+    </schema>
+  </database-model>
+</dataSource>

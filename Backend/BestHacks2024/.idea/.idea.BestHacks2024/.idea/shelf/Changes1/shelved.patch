@@ -1,0 +1,149 @@
+Index: BestHacks2024/Controllers/JobController.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BestHacks2024/Controllers/JobController.cs b/BestHacks2024/Controllers/JobController.cs
+new file mode 100644
+--- /dev/null	(date 1728758220943)
++++ b/BestHacks2024/Controllers/JobController.cs	(date 1728758220943)
+@@ -0,0 +1,32 @@
++using System.Security.Claims;
++using AutoMapper;
++using BestHacks2024.Interfaces;
++using Microsoft.AspNetCore.Authorization;
++using Microsoft.AspNetCore.Mvc;
++
++namespace BestHacks2024.Controllers;
++
++[ApiController]
++[Authorize(AuthenticationSchemes = "Bearer")]
++[Route("api/[controller]")]
++public class JobController: ControllerBase
++{
++    private readonly IJobService _jobService;
++    private readonly IMapper _mapper;
++    
++    public JobController(IJobService jobService, IMapper mapper)
++    {
++        _jobService = jobService;
++        _mapper = mapper;
++    }
++    
++    [HttpGet("{id}")]
++    public async Task<IActionResult> GetJobAsync(CancellationToken cancellationToken)
++    {
++        var identity = HttpContext.User.Identity  as ClaimsIdentity;
++        var id = Guid.Parse(identity.FindFirst("id").Value ?? throw new ArgumentException("Employee not found")) ;
++        var jobs  = await _jobService.GetNextJobAsync(id, cancellationToken);
++        
++        return Ok(jobs);
++    }
++}
+\ No newline at end of file
+Index: BestHacks2024/Services/JobService.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using AutoMapper;\nusing BestHacks2024.Database;\nusing BestHacks2024.Database.Entities;\nusing BestHacks2024.Dtos;\nusing BestHacks2024.Interfaces;\nusing Microsoft.EntityFrameworkCore;\n\nnamespace BestHacks2024.Services;\n\npublic class JobService : IJobService\n{\n    private readonly BestHacksDbContext _context;\n    private readonly IMapper _mapper;\n    public JobService(BestHacksDbContext context, IMapper mapper)\n    {\n        _context = context;\n        _mapper = mapper;\n    }\n    public async Task<IEnumerable<Job>> GetJobsAsync()\n    {\n        return await _context\n            .Jobs\n            .AsNoTracking()\n            .ToListAsync();\n    }\n\n    public async Task<Job?> GetJobByIdAsync(Guid jobId)\n    {\n        return await _context\n            .Jobs\n            .AsNoTracking()\n            .FirstOrDefaultAsync(x => x.Id == jobId);\n    }\n\n    public async Task<Job?> GetNextJobAsync()\n    {\n        throw new NotImplementedException();\n    }\n\n    public async Task<Job> AddJobAsync(JobDto jobDto)\n    {\n        var employer = await _context.Employers.FirstOrDefaultAsync(x => x.Id == jobDto.EmployerId);\n        if (employer == null)\n        {\n            throw new Exception(\"Employer not found\");\n        }\n\n        var tagIds = jobDto.Tags.Select(t => t.Id).ToList();\n        var existingTags = await _context.Tags\n            .Where(t => tagIds.Contains(t.Id))\n            .ToListAsync();\n\n        var job = _mapper.Map<Job>(jobDto);\n\n        job.Employer = employer;\n\n        job.JobTags = existingTags.Select(tag => new JobTag\n        {\n            TagId = tag.Id,\n            Tag = tag\n        }).ToList();\n\n        _context.Jobs.Add(job);\n        await _context.SaveChangesAsync();\n\n        return job;\n    }\n\n    public async Task<Job> UpdateJobAsync(Guid jobId, JobDto job)\n    {\n        throw new NotImplementedException();\n    }\n\n    public async Task DeleteJobAsync(Guid jobId)\n    {\n        throw new NotImplementedException();\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BestHacks2024/Services/JobService.cs b/BestHacks2024/Services/JobService.cs
+--- a/BestHacks2024/Services/JobService.cs	(revision 8e5b706a00957ccf11dc3afb3ad328e640fb1770)
++++ b/BestHacks2024/Services/JobService.cs	(date 1728760278624)
+@@ -1,9 +1,12 @@
++using System.Security.Claims;
+ using AutoMapper;
+ using BestHacks2024.Database;
+ using BestHacks2024.Database.Entities;
+ using BestHacks2024.Dtos;
+ using BestHacks2024.Interfaces;
+ using Microsoft.EntityFrameworkCore;
++using RestSharp;
++using RestSharp.Authenticators;
+ 
+ namespace BestHacks2024.Services;
+ 
+@@ -32,8 +35,24 @@
+             .FirstOrDefaultAsync(x => x.Id == jobId);
+     }
+ 
+-    public async Task<Job?> GetNextJobAsync()
++    public async Task<List<Job>> GetNextJobAsync(Guid userId, CancellationToken cancellationToken)
+     {
++        var options = new RestClientOptions($"http://localhost:8000/matches/");
++        var client = new RestClient(options);
++        var request = new RestRequest($"job/{userId}/");
++        var response = await client.GetAsync<List<JobAiDto>>(request, cancellationToken);
++        var aiJobs = new List<JobAiDto>();
++        
++        if (response is not null)
++        {
++           aiJobs = response.Where(x => x.Score > 0).ToList();
++        }
++        
++        var jobs = await _context.Jobs.Where(x => aiJobs.Select(y => y.Id).Contains(x.Id)).ToListAsync(cancellationToken);
++
++        var restOfJobs = await _context.Jobs.Where(x=>x.)
++        
++        
+         throw new NotImplementedException();
+     }
+ 
+Index: BestHacks2024/BestHacks2024.csproj
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><Project Sdk=\"Microsoft.NET.Sdk.Web\">\n\n  <PropertyGroup>\n    <TargetFramework>net8.0</TargetFramework>\n    <Nullable>enable</Nullable>\n    <ImplicitUsings>enable</ImplicitUsings>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <PackageReference Include=\"AutoMapper\" Version=\"13.0.1\" />\n    <PackageReference Include=\"Microsoft.AspNetCore.Authentication.JwtBearer\" Version=\"8.0.10\" />\n    <PackageReference Include=\"Microsoft.AspNetCore.Identity.EntityFrameworkCore\" Version=\"8.0.10\" />\n    <PackageReference Include=\"Microsoft.EntityFrameworkCore.Design\" Version=\"8.0.10\">\n      <PrivateAssets>all</PrivateAssets>\n      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>\n    </PackageReference>\n    <PackageReference Include=\"Microsoft.EntityFrameworkCore.Tools\" Version=\"8.0.10\">\n      <PrivateAssets>all</PrivateAssets>\n      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>\n    </PackageReference>\n    <PackageReference Include=\"Npgsql.EntityFrameworkCore.PostgreSQL\" Version=\"8.0.8\" />\n    <PackageReference Include=\"Sodium.IdentityModel.Tokens\" Version=\"1.1.0\" />\n    <PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"6.4.0\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <Folder Include=\"Enums\\\" />\n  </ItemGroup>\n\n</Project>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BestHacks2024/BestHacks2024.csproj b/BestHacks2024/BestHacks2024.csproj
+--- a/BestHacks2024/BestHacks2024.csproj	(revision 8e5b706a00957ccf11dc3afb3ad328e640fb1770)
++++ b/BestHacks2024/BestHacks2024.csproj	(date 1728757392997)
+@@ -19,12 +19,9 @@
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+     </PackageReference>
+     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
++    <PackageReference Include="RestSharp" Version="112.1.0" />
+     <PackageReference Include="Sodium.IdentityModel.Tokens" Version="1.1.0" />
+     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+   </ItemGroup>
+-
+-  <ItemGroup>
+-    <Folder Include="Enums\" />
+-  </ItemGroup>
+ 
+ </Project>
+Index: BestHacks2024/Interfaces/IJobService.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using BestHacks2024.Database.Entities;\nusing BestHacks2024.Dtos;\n\nnamespace BestHacks2024.Interfaces;\n\npublic interface IJobService\n{\n    public Task<IEnumerable<Job>> GetJobsAsync();\n    public Task<Job?> GetJobByIdAsync(Guid jobId);\n    public Task<Job?> GetNextJobAsync();\n    \n    public Task<Job> AddJobAsync(JobDto job);\n    public Task<Job> UpdateJobAsync(Guid jobId, JobDto job);\n    public Task DeleteJobAsync(Guid jobId);\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BestHacks2024/Interfaces/IJobService.cs b/BestHacks2024/Interfaces/IJobService.cs
+--- a/BestHacks2024/Interfaces/IJobService.cs	(revision 8e5b706a00957ccf11dc3afb3ad328e640fb1770)
++++ b/BestHacks2024/Interfaces/IJobService.cs	(date 1728758277059)
+@@ -7,7 +7,7 @@
+ {
+     public Task<IEnumerable<Job>> GetJobsAsync();
+     public Task<Job?> GetJobByIdAsync(Guid jobId);
+-    public Task<Job?> GetNextJobAsync();
++    public Task<List<Job>> GetNextJobAsync(Guid id, CancellationToken cancellationToken);
+     
+     public Task<Job> AddJobAsync(JobDto job);
+     public Task<Job> UpdateJobAsync(Guid jobId, JobDto job);
+Index: BestHacks2024/Dtos/JobAiDto.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BestHacks2024/Dtos/JobAiDto.cs b/BestHacks2024/Dtos/JobAiDto.cs
+new file mode 100644
+--- /dev/null	(date 1728758626180)
++++ b/BestHacks2024/Dtos/JobAiDto.cs	(date 1728758626180)
+@@ -0,0 +1,3 @@
++namespace BestHacks2024.Dtos;
++
++public record JobAiDto(Guid Id, float Score);
+\ No newline at end of file
