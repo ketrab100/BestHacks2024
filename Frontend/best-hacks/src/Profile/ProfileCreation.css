@@ -1,0 +1,122 @@
+.scroll-container {
+    height: calc(100vh - 120px);
+    /* Cała wysokość ekranu */
+    /* Wymusza płynne przewijanie w osi Y */
+    overflow-y: scroll;
+    /* Umożliwia przewijanie */
+    transition: background-color 0.3s ease-in-out;
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    gap: 5px;
+}
+
+ul::before {
+    content: attr(aria-label);
+    font-size: 120%;
+    font-weight: bold;
+    margin-left: -32px;
+}
+
+.tagSection {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.singleTag {
+    display: flex;
+    gap: 3px;
+    margin-right: 3px;
+}
+
+.credentials {
+    width: 100%;
+    font-size: 130%;
+    text-align: left;
+    font-weight: bold;
+}
+
+select {
+    margin-left: 5px;
+}
+
+.title {
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+.profile-pic {
+    width: calc(100% - 40px);
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Styl dla krótkiego inputu tekstowego */
+.short-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid #d1d5db;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.short-input:focus {
+    border-color: #3b82f6;
+    /* Kolor obramowania na focus */
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    /* Efekt podświetlenia */
+    outline: none;
+}
+
+/* Styl dla długiego inputu tekstowego (textarea) */
+.long-input {
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 2px solid #d1d5db;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical;
+    text-align: start;
+    /* Umożliwia dynamiczne dostosowanie wysokości */
+}
+
+.long-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    outline: none;
+}
+
+/* Stylowanie ogólne dla placeholderów */
+.short-input::placeholder,
+.long-input::placeholder {
+    color: #9ca3af;
+    /* Szary odcień placeholdera */
+    font-style: italic;
+}
+
+.submit-button {
+    background-color: #4c82af; /* Primary green color */
+    color: white; /* Text color */
+    padding: 12px 24px; /* Padding around the text */
+    font-size: 16px; /* Font size */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: 600; /* Bold font for emphasis */
+  }
+  
+  .submit-button:hover {
+    background-color: #4569a0; /* Darker green on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+  }

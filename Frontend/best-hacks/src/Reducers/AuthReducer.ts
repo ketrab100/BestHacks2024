@@ -1,28 +1,35 @@
-// export default function auth(state = localStorage.getItem('token'), action: any) {
-//     switch (action.type) {
-//         case 'UPDATE_TOKEN':
-//             localStorage.setItem('token', action.payload)
-//             return state = action.payload
-//         default:
-//             return state
-//     }
-// }
+// AuthReducer.ts
+import { createSlice } from '@reduxjs/toolkit';
 
-import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
+interface AuthState {
+    token: string | null;
+    role: string | null; // Dodaj pole role
+}
 
-const initialState: string = localStorage.getItem('token') ?? ''
+const initialState: AuthState = {
+    token: null,
+    role: null, // Domyślna wartość dla roli
+};
 
-
-export const authSlice = createSlice({
+const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        updateToken: (state, action: PayloadAction<string>) => {
-            localStorage.setItem('token', action.payload)
-            return action.payload
-        }
-    }
-})
-export const { updateToken } = authSlice.actions;
+        updateAuth: (state, action) => {
+            state.token = action.payload.token;
+            state.role = action.payload.role;
+            // Zapisz token i rolę w localStorage (opcjonalnie)
+            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('role', action.payload.role);
+        },
+        clearAuth: (state) => {
+            state.token = null;
+            state.role = null;
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
+        },
+    },
+});
 
-export default authSlice.reducer
+export const { updateAuth, clearAuth } = authSlice.actions;
+export default authSlice.reducer;

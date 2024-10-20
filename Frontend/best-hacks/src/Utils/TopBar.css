@@ -1,0 +1,84 @@
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #333;
+    color: #fff;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Nazwa firmy po lewej stronie */
+.company-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.blueText {
+    color: #2ca9bc
+}
+
+/* Kontener dla przycisków menu po prawej stronie */
+.menu-items {
+    display: flex;
+    align-items: center;
+}
+
+/* Ukryj przyciski w wersji mobilnej */
+.menu-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    color: #ddd;
+}
+
+.menu-icon-button {
+    height: 30px;
+    width: 30px;
+    margin-left: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Stylizacja hamburger menu */
+.hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.hamburger-menu .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+}
+
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu .menu-button {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+    text-align: left;
+}

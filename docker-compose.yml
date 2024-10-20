@@ -23,6 +23,8 @@ services:
       dockerfile: dockerfile
     ports:
       - "2137:8080"
+    depends_on:
+        - database
   database:
     container_name: database
     image: postgres:17

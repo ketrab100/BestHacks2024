@@ -7,6 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using BestHacks2024.Database;
+using BestHacks2024.Interfaces;
+using BestHacks2024.Mappings;
+using BestHacks2024.Services;
 
 namespace BestHacks2024
 {
@@ -61,10 +64,16 @@ namespace BestHacks2024
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            
             builder.Services.AddDbContext<BestHacksDbContext>(options =>
             {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("SqlConnection"));
             });
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IEmployerService, EmployerService>();
+            builder.Services.AddScoped<IMatchService, MatchService>();
+            builder.Services.AddScoped<ITagService, TagService>();
 
             builder.Services.AddIdentity<User, IdentityRole<Guid>>(opt =>
             {
@@ -92,9 +101,15 @@ namespace BestHacks2024
                 };
             });
 
+            
+            
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             var app = builder.Build();
+
+            var scope = app.Services.CreateScope();
+            var dbcontext = scope.ServiceProvider.GetRequiredService<BestHacksDbContext>();
+            dbcontext.Database.Migrate();
 
             // Configure the HTTP request pipeline.
 
@@ -114,6 +129,45 @@ namespace BestHacks2024
             app.UseAuthorization();
 
             app.MapControllers();
+
+            if (bool.Parse(builder.Configuration["ShouldGenerateMockData"]))
+            {
+                using (var mockScope = app.Services.CreateScope())
+                {
+                    var dbContext = mockScope.ServiceProvider.GetRequiredService<BestHacksDbContext>();
+                    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                    if (!dbContext.Employees.Any() && !dbContext.Employers.Any() && !dbContext.Matches.Any())
+                    {
+                        var tags = StaticMockDataGenerator.GenerateTags(15); // Generate 15 unique tags
+                        var employees = StaticMockDataGenerator.GenerateEmployees(10, tags);
+                        var employers = StaticMockDataGenerator.GenerateEmployers(10, tags);
+
+                        foreach (var employee in employees)
+                        {
+                            var password = "Employee123!"; 
+                            var result = userManager.CreateAsync(employee, password).Result;
+                            if (!result.Succeeded)
+                            {
+                                throw new Exception($"Failed to create employee user: {result.Errors.FirstOrDefault()?.Description}");
+                            }
+                        }
+
+                        foreach (var employer in employers)
+                        {
+                            var password = "Employer123!"; 
+                            var result = userManager.CreateAsync(employer, password).Result;
+                            if (!result.Succeeded)
+                            {
+                                throw new Exception($"Failed to create employer user: {result.Errors.FirstOrDefault()?.Description}");
+                            }
+                        }
+                        //
+                        //var matches = StaticMockDataGenerator.GenerateMatches(employees, employers);
+                        //dbContext.Matches.AddRange(matches);
+                        dbContext.SaveChanges();
+                    }
+                }
+            }
 
             app.Run();
         }

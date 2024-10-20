@@ -22,8 +22,10 @@ class MatchViewSet(viewsets.ModelViewSet):
     )
     def get_employers_list(self, request, pk=None):
         tags = Tags.objects.all()
-        matches = (Matches.objects.select_related('employerid__employertags')
-                   .prefetch_related('employerid__employertags').filter(userid=pk))
+        matches = Matches.objects.filter(userid=pk).order_by('createdat')[:100].all()
+
+        if matches.count() < 2:
+            return Response([])
 
         tag_map = {tag.name: 1 for tag in tags}
 
@@ -31,7 +33,7 @@ class MatchViewSet(viewsets.ModelViewSet):
         for t in tag_map:
             l[t] = []
             for m in matches:
-                if t not in m.employerid.employertags.tagid.name:
+                if t not in m.employerid.employertags.tagid.name.split('\n'):
                     l[t].append(0)
                 else:
                     l[t].append(1)

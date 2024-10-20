@@ -1,84 +1,4 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
-
-class Aspnetroleclaims(models.Model):
-    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    roleid = models.ForeignKey('Aspnetroles', models.DO_NOTHING, db_column='RoleId')  # Field name made lowercase.
-    claimtype = models.TextField(db_column='ClaimType', blank=True, null=True)  # Field name made lowercase.
-    claimvalue = models.TextField(db_column='ClaimValue', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'AspNetRoleClaims'
-
-
-class Aspnetroles(models.Model):
-    id = models.UUIDField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(db_column='Name', max_length=256, blank=True, null=True)  # Field name made lowercase.
-    normalizedname = models.CharField(db_column='NormalizedName', unique=True, max_length=256, blank=True,
-                                      null=True)  # Field name made lowercase.
-    concurrencystamp = models.TextField(db_column='ConcurrencyStamp', blank=True,
-                                        null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'AspNetRoles'
-
-
-class Aspnetuserclaims(models.Model):
-    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    userid = models.ForeignKey('Aspnetusers', models.DO_NOTHING, db_column='UserId')  # Field name made lowercase.
-    claimtype = models.TextField(db_column='ClaimType', blank=True, null=True)  # Field name made lowercase.
-    claimvalue = models.TextField(db_column='ClaimValue', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'AspNetUserClaims'
-
-
-class Aspnetuserlogins(models.Model):
-    loginprovider = models.TextField(db_column='LoginProvider',
-                                     primary_key=True)  # Field name made lowercase. The composite primary key (LoginProvider, ProviderKey) found, that is not supported. The first column is selected.
-    providerkey = models.TextField(db_column='ProviderKey')  # Field name made lowercase.
-    providerdisplayname = models.TextField(db_column='ProviderDisplayName', blank=True,
-                                           null=True)  # Field name made lowercase.
-    userid = models.ForeignKey('Aspnetusers', models.DO_NOTHING, db_column='UserId')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'AspNetUserLogins'
-        unique_together = (('loginprovider', 'providerkey'),)
-
-
-class Aspnetuserroles(models.Model):
-    userid = models.OneToOneField('Aspnetusers', models.DO_NOTHING, db_column='UserId',
-                                  primary_key=True)  # Field name made lowercase. The composite primary key (UserId, RoleId) found, that is not supported. The first column is selected.
-    roleid = models.ForeignKey(Aspnetroles, models.DO_NOTHING, db_column='RoleId')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'AspNetUserRoles'
-        unique_together = (('userid', 'roleid'),)
-
-
-class Aspnetusertokens(models.Model):
-    userid = models.OneToOneField('Aspnetusers', models.DO_NOTHING, db_column='UserId',
-                                  primary_key=True)  # Field name made lowercase. The composite primary key (UserId, LoginProvider, Name) found, that is not supported. The first column is selected.
-    loginprovider = models.TextField(db_column='LoginProvider')  # Field name made lowercase.
-    name = models.TextField(db_column='Name')  # Field name made lowercase.
-    value = models.TextField(db_column='Value', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'AspNetUserTokens'
-        unique_together = (('userid', 'loginprovider', 'name'),)
 
 
 class Aspnetusers(models.Model):
@@ -93,7 +13,6 @@ class Aspnetusers(models.Model):
                                                 null=True)  # Field name made lowercase.
     employee_createdat = models.DateTimeField(db_column='Employee_CreatedAt', blank=True,
                                               null=True)  # Field name made lowercase.
-    employee_image = models.BinaryField(db_column='Employee_Image', blank=True, null=True)  # Field name made lowercase.
     companyname = models.TextField(db_column='CompanyName', blank=True, null=True)  # Field name made lowercase.
     contactname = models.TextField(db_column='ContactName', blank=True, null=True)  # Field name made lowercase.
     createdat = models.DateTimeField(db_column='CreatedAt', blank=True, null=True)  # Field name made lowercase.
@@ -101,7 +20,8 @@ class Aspnetusers(models.Model):
     jobdescription = models.TextField(db_column='JobDescription', blank=True, null=True)  # Field name made lowercase.
     location = models.TextField(db_column='Location', blank=True, null=True)  # Field name made lowercase.
     experiencelevel = models.TextField(db_column='ExperienceLevel', blank=True, null=True)  # Field name made lowercase.
-    image = models.BinaryField(db_column='Image', blank=True, null=True)  # Field name made lowercase.
+    tagid = models.ForeignKey('Tags', models.DO_NOTHING, db_column='TagId', blank=True,
+                              null=True)  # Field name made lowercase.
     username = models.CharField(db_column='UserName', max_length=256, blank=True,
                                 null=True)  # Field name made lowercase.
     normalizedusername = models.CharField(db_column='NormalizedUserName', unique=True, max_length=256, blank=True,
@@ -151,10 +71,9 @@ class Employertags(models.Model):
 
 class Matches(models.Model):
     id = models.UUIDField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    didemployeeacceptjoboffer = models.BooleanField(db_column='DidEmployeeAcceptJobOffer', blank=True,
-                                                    null=True)  # Field name made lowercase.
-    didemployeracceptcandidate = models.BooleanField(db_column='DidEmployerAcceptCandidate', blank=True,
-                                                     null=True)  # Field name made lowercase.
+    didemployeeacceptjoboffer = models.BooleanField(db_column='DidEmployeeAcceptJobOffer')  # Field name made lowercase.
+    didemployeracceptcandidate = models.BooleanField(
+        db_column='DidEmployerAcceptCandidate')  # Field name made lowercase.
     arematched = models.BooleanField(db_column='AreMatched')  # Field name made lowercase.
     createdat = models.DateTimeField(db_column='CreatedAt')  # Field name made lowercase.
     userid = models.ForeignKey(Aspnetusers, models.DO_NOTHING, db_column='UserId')  # Field name made lowercase.
