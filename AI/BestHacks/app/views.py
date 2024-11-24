@@ -22,10 +22,8 @@ class MatchViewSet(viewsets.ModelViewSet):
     )
     def get_employers_list(self, request, pk=None):
         tags = Tags.objects.all()
-        matches = Matches.objects.filter(userid=pk).order_by('createdat')[:100].all()
-
-        if matches.count() < 2:
-            return Response([])
+        matches = (Matches.objects.select_related('employerid__employertags')
+                   .prefetch_related('employerid__employertags').filter(userid=pk))
 
         tag_map = {tag.name: 1 for tag in tags}
 
@@ -38,8 +36,26 @@ class MatchViewSet(viewsets.ModelViewSet):
                 else:
                     l[t].append(1)
 
-        l["accepted"] = [m.didemployeeacceptjoboffer for m in matches]
-        df = pd.DataFrame(l)
+        ids = matches.values_list('id', flat=True).distinct()
+
+        tags = []
+        for id in ids:
+            tags.append(matches.filter(pk=id).values_list('employerid__employertags__tagid__name', flat=True))
+
+        data = []
+        for ut in tags:
+            a = []
+            for t in tag_map:
+                if t in ut:
+                    a.append(1)
+                else:
+                    a.append(0)
+            data.append(a)
+
+        df = pd.DataFrame(data=data, columns=[tag.name for tag in tags])
+
+        # l["accepted"] = [m.didemployeeacceptjoboffer for m in matches]
+        # df = pd.DataFrame(l)
         x = df.drop("accepted", axis=1)
         x = x.values
         y = df["accepted"]
